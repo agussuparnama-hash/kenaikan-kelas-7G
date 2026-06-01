@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman Kenaikan Kelas VII G - SMP Negeri 4 Amlapura</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* CSS Khusus untuk Mode Cetak / Print */
+        @media print {
+            body { background: white !important; min-h: auto !important; }
+            header, footer, .no-print { display: none !important; }
+            main { max-width: 100% !important; width: 100% !important; padding: 0 !important; margin: 0 !important; }
+            .print-card { border: none !important; shadow: none !important; box-shadow: none !important; padding: 0 !important; }
+            .bg-slate-50 { background-color: transparent !important; border: 1px solid #e2e8f0 !important; }
+            .bg-emerald-50 { background-color: transparent !important; border: 2px solid #10b981 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col justify-between">
+
+    <header class="bg-blue-900 text-white shadow-md">
+        <div class="max-w-4xl mx-auto px-4 py-6 text-center">
+            <h1 class="text-xl md:text-2xl font-bold tracking-wide uppercase">SMP Negeri 4 Amlapura</h1>
+            <p class="text-sm md:text-base text-blue-200 mt-1">Pengumuman Kenaikan Kelas Tahun Pelajaran 2025/2026</p>
+            <div class="inline-block bg-blue-800 text-xs font-semibold px-3 py-1 rounded-full mt-3 text-blue-100">
+                KELAS VII G
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-xl w-full mx-auto px-4 py-8 flex-grow">
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-100 print-card">
+            
+            <div class="no-print mb-6">
+                <h2 class="text-lg font-semibold text-slate-800 text-center mb-4">Cek Status Kenaikan Kelas</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label for="nisnInput" class="block text-sm font-medium text-slate-600 mb-2">Masukkan NISN Siswa :</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="nisnInput" placeholder="Contoh: 0137300021" 
+                                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-base">
+                            <button onclick="cekKenaikan()" 
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-xl transition shadow-md active:scale-95">
+                                Cari
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resultArea" class="hidden mt-4 pt-4 border-t border-dashed border-slate-200">
+                
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-center mb-6 flex flex-col items-center">
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full no-print">Status Kelulusan</span>
+                    
+                    <div class="mt-4 w-32 h-40 bg-slate-200 rounded-xl overflow-hidden shadow-inner border-2 border-white flex items-center justify-center">
+                        <img id="resFoto" src="" alt="Foto Siswa" class="w-full h-full object-cover hidden" onerror="imgError(this)">
+                        <div id="photoPlaceholder" class="text-slate-400 text-xs px-2 text-center flex flex-col items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            <span>Foto (.jpg)<br>belum diunggah</span>
+                        </div>
+                    </div>
+
+                    <h3 id="resNama" class="text-xl font-bold text-slate-800 mt-4 uppercase"></h3>
+                    <p class="text-sm text-slate-500 mt-1">NISN: <span id="resNisn" class="font-mono font-medium"></span></p>
+                    
+                    <div class="mt-4 w-full text-base font-semibold text-emerald-800 bg-emerald-100/50 py-2 rounded-xl border border-emerald-200/50">
+                        Dinyatakan: <span class="text-lg font-bold">NAIK KE KELAS VIII</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4 mb-6">
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Catatan Prestasi / Pencapaian:</h4>
+                        <p id="resPencapaian" class="text-sm font-semibold text-blue-900"></p>
+                    </div>
+                    
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Pesan Pembinaan Wali Kelas:</h4>
+                        <p id="resPembinaan" class="text-sm text-slate-700 leading-relaxed italic"></p>
+                    </div>
+                </div>
+
+                <div class="no-print text-center pt-2">
+                    <button onclick="window.print()" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white font-medium px-5 py-2.5 rounded-xl transition shadow text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        </svg>
+                        Cetak Bukti Pengumuman
+                    </button>
+                </div>
+
+            </div>
+
+            <div id="errorArea" class="hidden mt-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-center text-sm">
+                Maaf, data NISN tidak ditemukan. Mohon periksa kembali nomor yang Anda masukkan.
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 text-center py-4 text-xs border-t border-slate-700">
+        <p>&copy; 2026 SMP Negeri 4 Amlapura. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Database lengkap siswa Kelas VII G dengan format NISN teks asli (10 digit)
+        const dataSiswa = {
+          "0137300021": {
+            "nama": "I GEDE ARYA SUPUTRA",
+            "catatan_pencapaian": "Sangat Baik (Rekomendasi Rangking 5 Besar Kelas)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "0139556904": {
+            "nama": "I GEDE SUDARSANA",
+            "catatan_pencapaian": "Sangat Baik (Rekomendasi Rangking 7 Besar Kelas)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "3127103528": {
+            "nama": "I GUSTI NGURAH AGUNG SATWIKA ADI WIGUNA",
+            "catatan_pencapaian": "Sangat Baik (Rekomendasi Rangking 9 Besar Kelas)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "0111836818": {
+            "nama": "I KADE SUARMA YASA",
+            "catatan_pencapaian": "Cukup Baik (Perlu Optimalisasi Kehadiran)",
+            "pesan_pembinaan": "Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
+          },
+          "0138402599": {
+            "nama": "I KADE SUMERTA",
+            "catatan_pencapaian": "Cukup Baik (Perlu Bimbingan Interaksi Sosial)",
+            "pesan_pembinaan": "Teruslah membangun pergaulan yang sehat dan mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil keputusan yang baik dan bermanfaat bagi masa depan."
+          },
+          "3122015437": {
+            "nama": "I KETUT DIAN MAHENDRA",
+            "catatan_pencapaian": "Cukup Baik (Perlu Peningkatan Presensi)",
+            "pesan_pembinaan": "Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat and kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
+          },
+          "3133992745": {
+            "nama": "I KETUT PUTRA DARMA YASA",
+            "catatan_pencapaian": "Cukup Baik (Perlu Peningkatan Kedisiplinan Kehadiran)",
+            "pesan_pembinaan": "Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
+          },
+          "0131589554": {
+            "nama": "I KOMANG GALANG KUSUMA",
+            "catatan_pencapaian": "Baik (Menunjukkan Progress Peningkatan Belajar)",
+            "pesan_pembinaan": "Ananda telah menunjukkan perkembangan yang positif dalam belajar. Diharapkan semakin rajin, disiplin, dan bersungguh-sungguh dalam belajar untuk meraih prestasi yang lebih baik."
+          },
+          "0122364962": {
+            "nama": "I KOMANG SATIA WIRAWAN",
+            "catatan_pencapaian": "Cukup Baik (Perlu Perhatian Kesiapan Fisik & Kehadiran)",
+            "pesan_pembinaan": "Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
+          },
+          "0132511715": {
+            "nama": "I MADE ARDIKA DARMA SUSILA",
+            "catatan_pencapaian": "Sangat Baik (Rekomendasi Rangking 10 Besar Kelas)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan belajar yang luar biasa. Untuk mempertahankan prestasi di kelas VIII, diharapkan Ananda bisa lebih konsisten dalam menjaga tingkat kehadiran di sekolah."
+          },
+          "0125614580": {
+            "nama": "I NENGAH RESTU WIDIANTARA",
+            "catatan_pencapaian": "Cukup Baik (Perlu Motivasi & Bimbingan Pergaulan)",
+            "pesan_pembinaan": "Teruslah membangun pergaulan yang sehat dan mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil keputusan yang baik dan bermanfaat bagi masa depan."
+          },
+          "0136723244": {
+            "nama": "I PUTU ARYA KEVIN PUTRA PRATAMA",
+            "catatan_pencapaian": "Cukup Baik (Perlu Fokus & Mindset Positif)",
+            "pesan_pembinaan": "Teruslah membangun pergaulan yang sehat dan mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil keputusan yang baik dan bermanfaat bagi masa depan."
+          },
+          "0139406499": {
+            "nama": "I PUTU ARYA MAHENDRA",
+            "catatan_pencapaian": "Cukup Baik (Perlu Pendampingan Akademik & Sosial)",
+            "pesan_pembinaan": "Teruslah membangun pergaulan yang sehat dan mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil keputusan yang baik dan bermanfaat bagi masa depan."
+          },
+          "0121847212": {
+            "nama": "I WAYAN SUGIARTA",
+            "catatan_pencapaian": "Cukup Baik (Perlu Peningkatan Semangat Belajar)",
+            "pesan_pembinaan": "Teruslah membangun pergaulan yang sehat dan mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil keputusan yang baik dan bermanfaat bagi masa depan."
+          },
+          "0134066990": {
+            "nama": "I WAYAN WIDIARTA YASA",
+            "catatan_pencapaian": "Baik (Perlu Konsistensi Kehadiran)",
+            "pesan_pembinaan": "Ananda telah menunjukkan perkembangan yang positif dalam belajar. Diharapkan semakin rajin, disiplin, dan bersungguh-sungguh dalam belajar untuk meraih prestasi yang lebih baik."
+          },
+          "0134268627": {
+            "nama": "MADE RADITYA ADINATA",
+            "catatan_pencapaian": "Cukup Baik (Perlu Fokus pada Pengembangan Diri)",
+            "pesan_pembinaan": "Teruslah membangun pergaulan yang sehat dan mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil keputusan yang baik dan bermanfaat bagi masa depan."
+          },
+          "0126173614": {
+            "nama": "NI KADE SINTYA PUSPITA DEWI",
+            "catatan_pencapaian": "Sangat Baik (Rekomendasi Rangking 4 Besar Kelas)",
+            "pesan_pembinaan": "Prestasi belajar Ananda sudah sangat membanggakan. Alangkah baiknya jika di kelas VIII nanti, kedisiplinan dalam kehadiran ditingkatkan kembali agar materi pembelajaran terserap lebih optimal."
+          },
+          "0137050105": {
+            "nama": "NI KADEK MAWAR AYUNINDA DEWI",
+            "catatan_pencapaian": "Cukup Baik (Perlu Dorongan Motivasi & Kehadiran)",
+            "pesan_pembinaan": "Teruslah membangun pergaulan yang sehat dan mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil keputusan yang baik dan bermanfaat bagi masa depan."
+          },
+          "3131087453": {
+            "nama": "NI KETUT LUSIANI",
+            "catatan_pencapaian": "Cukup Baik (Perlu Peningkatan Kerajinan Presensi)",
+            "pesan_pembinaan": "Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
+          },
+          "0137128909": {
+            "nama": "NI KETUT RISAYANA SAVITRI",
+            "catatan_pencapaian": "Luar Biasa (Rekomendasi Rangking 2 Besar Kelas)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "0139571098": {
+            "nama": "NI KETUT SRI PURNAMA SARI",
+            "catatan_pencapaian": "Istimewa (Rekomendasi Juara / Rangking 1 Kelas VII G)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "0126286685": {
+            "nama": "NI KETUT SUPRIANI",
+            "catatan_pencapaian": "Baik (Menunjukkan Peningkatan Grafik Nilai)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "0136055929": {
+            "nama": "NI KOMANG AMELIA TRISNAWATI",
+            "catatan_pencapaian": "Baik (Peringkat 11 Kelas)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "3121918554": {
+            "nama": "NI KOMANG DEWI CITRA LESTARI",
+            "catatan_pencapaian": "Luar Biasa (Rekomendasi Rangking 3 Besar Kelas)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "3133934407": {
+            "nama": "NI KOMANG MULYA NINGSIH",
+            "catatan_pencapaian": "Sangat Baik (Rekomendasi Rangking 8 Besar Kelas)",
+            "pesan_pembinaan": "Selamat atas pencapaian rangkingnya yang baik. Mengingat pentingnya kesinambungan materi di kelas VIII, mari kita perbaiki bersama aspek kehadiran agar prestasi Ananda jauh lebih melesat."
+          },
+          "0121570672": {
+            "nama": "NI KOMANG NOVI SINTIAWATI",
+            "catatan_pencapaian": "Cukup Baik (Perlu Dorongan Semangat Belajar)",
+            "pesan_pembinaan": "Teruslah membangun pergaulan yang sehat dan mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil keputusan yang baik dan bermanfaat bagi masa depan."
+          },
+          "0139238918": {
+            "nama": "NI KOMANG SINTYA WULANDARI",
+            "catatan_pencapaian": "Baik (Mengalami Progress yang Positif)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "0132479567": {
+            "nama": "NI LUH INDAH SARI",
+            "catatan_pencapaian": "Sangat Baik (Rekomendasi Rangking 6 Besar Kelas)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "3124911015": {
+            "nama": "NI LUH RATNANINGSIH",
+            "catatan_pencapaian": "Baik (Menunjukkan Peningkatan Kompetensi)",
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+          },
+          "0119677352": {
+            "nama": "NI NENGAH SUMARNI",
+            "catatan_pencapaian": "Cukup Baik (Perlu Peningkatan Fokus Akademik)",
+            "pesan_pembinaan": "Teruslah membangun pergaulan yang sehat dan mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil keputusan yang baik dan bermanfaat bagi masa depan."
+          },
+          "0134620051": {
+            "nama": "NI WAYAN DINA DITIYANTI",
+            "catatan_pencapaian": "Cukup Baik (Perlu Optimalisasi Absensi)",
+            "pesan_pembinaan": "Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
+          }
+        };
+
+        function cekKenaikan() {
+            const input = document.getElementById("nisnInput").value.trim();
+            const resultArea = document.getElementById("resultArea");
+            const errorArea = document.getElementById("errorArea");
+            const imgElement = document.getElementById("resFoto");
+            const placeholder = document.getElementById("photoPlaceholder");
+
+            // Reset view
+            resultArea.classList.add("hidden");
+            errorArea.classList.add("hidden");
+
+            if (dataSiswa[input]) {
+                const siswa = dataSiswa[input];
+                document.getElementById("resNama").innerText = siswa.nama;
+                document.getElementById("resNisn").innerText = input;
+                document.getElementById("resPencapaian").innerText = siswa.catatan_pencapaian;
+                document.getElementById("resPembinaan").innerText = siswa.pesan_pembinaan;
+                
+                // Memanggil file .jpg menggunakan nama NISN ber-angka nol di depan
+                imgElement.src = "foto/" + input + ".jpg";
+                imgElement.classList.remove("hidden");
+                placeholder.classList.add("hidden");
+                
+                resultArea.classList.remove("hidden");
+            } else {
+                errorArea.classList.remove("hidden");
+            }
+        }
+
+        // Fungsi cadangan jika file foto .jpg belum diunggah ke folder
+        function imgError(image) {
+            image.classList.add("hidden");
+            document.getElementById("photoPlaceholder").classList.remove("hidden");
+        }
+
+        // Menjalankan pencarian saat menekan tombol enter pada keyboard
+        document.getElementById("nisnInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                cekKenaikan();
+            }
+        });
+    </script>
+</body>
+</html>
