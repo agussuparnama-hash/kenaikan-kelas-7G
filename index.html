@@ -17,20 +17,24 @@
         .header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; padding: 30px 20px; }
         .header h1 { margin: 0; font-size: 24px; letter-spacing: 0.5px; }
         .header h2 { margin: 5px 0 0 0; font-size: 16px; font-weight: normal; opacity: 0.9; }
+        
         .teacher-box { padding: 25px; text-align: center; border-bottom: 1px dashed #e5e7eb; }
-        .teacher-img { width: 140px; height: 140px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.15); object-fit: cover; margin-bottom: 15px; }
-        .teacher-name { font-size: 18px; font-weight: bold; color: var(--primary); }
         
-        /* Gaya Khusus Puisi */
+        /* Bingkai Foto Dinamis (Bisa Berganti Wali Kelas / Siswa) */
+        .photo-container { margin-bottom: 15px; }
+        .dynamic-img { width: 140px; height: 140px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.15); object-fit: cover; transition: all 0.5s ease-in-out; }
+        .photo-label { font-size: 13px; color: #6b7280; font-style: italic; margin-top: 2px; font-weight: bold; }
+        
         .poem-box { margin: 20px auto; padding: 15px; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; font-style: italic; color: #4b5563; line-height: 1.6; text-align: center; font-size: 14px; }
-        
         .welcome-text { text-align: justify; font-size: 14px; background: #f8fafc; padding: 15px; border-left: 4px solid var(--secondary); margin-top: 15px; border-radius: 4px; line-height: 1.6; }
+        
         .search-box { padding: 30px 25px; background: #f9fafb; text-align: center; }
         .input-group { display: flex; gap: 10px; max-width: 420px; margin: 15px auto 0; }
         .input-nisn { flex: 1; padding: 12px 15px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 16px; outline: none; transition: all 0.3s; }
         .input-nisn:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
         .btn-cari { background: var(--primary); color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
         .btn-cari:hover { background: #172554; }
+        
         .result-card { display: none; margin-top: 25px; background: white; border: 2px solid var(--success); border-radius: 10px; text-align: left; animation: slideIn 0.35s ease-out; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
         @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .result-header { background: var(--success); color: white; padding: 14px 20px; font-weight: bold; display: flex; justify-content: space-between; border-top-left-radius: 6px; border-top-right-radius: 6px; font-size: 15px; }
@@ -52,11 +56,13 @@
     </div>
 
     <div class="teacher-box">
-        <img src="foto/wali_kelas.jpg" class="teacher-img" alt="Foto I Nengah Sumanadi, S.Pd.">
-        <div class="teacher-name">I Nengah Sumanadi, S.Pd.</div>
-        <div style="font-size: 13px; color: #6b7280; font-style: italic; margin-top: 2px;">Wali Kelas VII G</div>
-        
-        <!-- Bagian Puisi Guruku dan Belajar -->
+        <!-- Bagian Pembuka, Puisi, dan Salam Muncul Terlebih Dahulu -->
+        <div class="welcome-text" style="margin-top: 0; margin-bottom: 15px;">
+            <strong>Om Swastyastu,</strong><br><br>
+            Selamat datang kami ucapkan kepada Bapak/Ibu Orang Tua/Wali murid serta seluruh siswa kelas VII G. 
+            Melalui halaman resmi ini, silakan masukkan 10 digit NISN siswa secara lengkap pada kolom pencarian di bawah untuk memeriksa hasil evaluasi capaian belajar, catatan perkembangan, serta status kenaikan kelas menuju Kelas VIII.
+        </div>
+
         <div class="poem-box">
             "Di bawah tatap lembut sang guru pendidik jiwa,<br>
             Aksara demi aksara dirajut menjadi lentera kehidupan.<br>
@@ -66,10 +72,10 @@
             Teruslah melangkah tegak, gapai mimpi setinggi prestasi."
         </div>
 
-        <div class="welcome-text">
-            <strong>Om Swastyastu,</strong><br><br>
-            Selamat datang kami ucapkan kepada Bapak/Ibu Orang Tua/Wali murid serta seluruh siswa kelas VII G. 
-            Melalui halaman resmi ini, silakan masukkan 10 digit NISN siswa secara lengkap pada kolom pencarian di bawah untuk memeriksa hasil evaluasi capaian belajar, catatan perkembangan, serta status kenaikan kelas menuju Kelas VIII.
+        <!-- Wadah Foto Bersama Label yang Bergantian -->
+        <div class="photo-container">
+            <img id="displayPhoto" src="foto/wali_kelas.jpg" class="dynamic-img" alt="Foto Tampilan">
+            <div id="photoLabel" class="photo-label">I Nengah Sumanadi, S.Pd. (Wali Kelas VII G)</div>
         </div>
     </div>
 
@@ -79,8 +85,9 @@
             <input type="text" id="nisnInput" class="input-nisn" placeholder="Contoh: 0137300021" autocomplete="off">
             <button onclick="prosesCari()" class="btn-cari">Periksa</button>
         </div>
-        <div id="error" class="error-msg">Nomor NISN tidak ditemukan. Pastikan 10 digit NISN yang dimasukkan sudah benar (termasuk angka 0 di depan jika ada) atau hubungi Wali Kelas.</div>
+        <div id="error" class="error-msg">Nomor NISN tidak ditemukan. Pastikan 10 digit NISN yang dimasukkan sudah benar atau hubungi Wali Kelas.</div>
 
+        <!-- Kartu Hasil Evaluasi -->
         <div id="result" class="result-card">
             <div class="result-header">
                 <span>HASIL EVALUASI AKHIR SEMESTER</span>
@@ -113,7 +120,6 @@
 </div>
 
 <script>
-    // Seluruh data NISN 10 digit utuh dari berkas raport
     const dataSiswa = {
         "0137300021": {
             nama: "I GEDE ARYA SUPUTRA",
@@ -276,19 +282,31 @@
         const input = document.getElementById('nisnInput').value.trim();
         const boksHasil = document.getElementById('result');
         const boksError = document.getElementById('error');
+        const imgDisplay = document.getElementById('displayPhoto');
+        const labelPhoto = document.getElementById('photoLabel');
 
         boksHasil.style.display = 'none';
         boksError.style.display = 'none';
 
         if (dataSiswa[input]) {
+            // Isi data nilai siswa
             document.getElementById('txtNama').innerText = dataSiswa[input].nama;
             document.getElementById('txtNisn').innerText = input;
             document.getElementById('txtPencapaian').innerText = dataSiswa[input].capai;
             document.getElementById('txtPembinaan').innerText = dataSiswa[input].bina;
             
+            // Tampilkan Kartu Hasil
             boksHasil.style.display = 'block';
+
+            // GANTI FOTO UTAMA MENJADI FOTO SISWA SECARA DINAMIS
+            imgDisplay.src = "foto/" + input + ".jpg";
+            labelPhoto.innerText = "Foto Siswa: " + dataSiswa[input].nama;
         } else {
             boksError.style.display = 'block';
+            
+            // Kembalikan ke foto Wali Kelas jika NISN salah/tidak ketemu
+            imgDisplay.src = "foto/wali_kelas.jpg";
+            labelPhoto.innerText = "I Nengah Sumanadi, S.Pd. (Wali Kelas VII G)";
         }
     }
 
