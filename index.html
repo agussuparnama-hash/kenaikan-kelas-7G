@@ -56,36 +56,34 @@
         .label { font-size: 12px; text-transform: uppercase; color: #6b7280; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
         .value { font-size: 18px; font-weight: 500; margin-top: 4px; color: #111827; }
         
-        /* Tombol Unduh Bukti Kenaikan */
-        .btn-unduh { display: block; width: 100%; max-width: 280px; margin: 25px auto 0; background: #2563eb; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; text-align: center; transition: background 0.3s; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2); }
-        .btn-unduh:hover { background: #1d4ed8; }
+        /* Tombol Unduh Gambar */
+        .btn-unduh { display: block; width: 100%; max-width: 300px; margin: 25px auto 0; background: #e11d48; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; text-align: center; transition: background 0.3s; box-shadow: 0 4px 6px -1px rgba(225, 29, 72, 0.2); }
+        .btn-unduh:hover { background: #be123c; }
 
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #6b7280; background: white; border-top: 1px solid #e5e7eb; }
+        
+        /* Menyembunyikan canvas proses gambar */
+        canvas { display: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Bagian Kepala Sekolah & Logo -->
     <div class="header">
         <img src="foto/logo_sekolah.png" class="logo-sekolah" alt="Logo SMPN 4 Amlapura">
         <h1>SMP Negeri 4 Amlapura</h1>
         <h2>Pengumuman Kenaikan Kelas VII G</h2>
     </div>
 
-    <!-- BILAH UTAMA -->
     <div class="profile-container">
-        
-        <!-- Bagian Foto Dinamis -->
         <div class="photo-box">
             <img id="profileImage" src="foto/wali_kelas.jpg" class="profile-img" alt="Foto Profil">
         </div>
         
-        <!-- Bagian Judul Nama Dinamis -->
         <div id="profileName" class="profile-title">I Nengah Sumanadi, S.Pd.</div>
         <div id="profileStatus" class="profile-subtitle">Wali Kelas VII G</div>
 
-        <!-- BLOK KONTEN 1: Tampilan Default (Wali Kelas) -->
+        <!-- BLOK KONTEN 1: Wali Kelas -->
         <div id="teacherContent">
             <div class="poem-box">
                 "Di bawah tatap lembut sang guru pendidik jiwa,<br>
@@ -103,7 +101,6 @@
                 Silakan masukkan 10 digit NISN siswa secara lengkap pada kolom pencarian di bawah ini untuk memeriksa hasil capaian belajar serta status resmi kenaikan kelas menuju Kelas VIII.
             </div>
 
-            <!-- Kotak Pencarian NISN diletakkan paling bawah setelah salam pembuka -->
             <div id="searchBoxBlock" class="search-box">
                 <h3 style="margin:0; font-size: 17px; color: var(--primary);">Masukkan NISN Siswa (10 Digit):</h3>
                 <div class="input-group">
@@ -114,7 +111,7 @@
             </div>
         </div>
 
-        <!-- BLOK KONTEN 2: Tampilan Hasil (Profil Siswa) -->
+        <!-- BLOK KONTEN 2: Profil Siswa -->
         <div id="studentContent" class="student-profile-box">
             <div class="result-header">
                 <span>HASIL EVALUASI AKHIR SEMESTER</span>
@@ -138,8 +135,8 @@
                     <div id="txtPembinaan" class="value" style="line-height: 1.7; text-align: justify; color: #1f2937; font-size: 17px; font-weight: normal;"></div>
                 </div>
                 
-                <!-- TOMBOL DIGANTI JADI UNDUH BUKTI KENAIKAN KELAS -->
-                <button onclick="unduhBukti()" class="btn-unduh">⬇️ Unduh Bukti Kenaikan Kelas</button>
+                <!-- TOMBOL UNDUH SEBAGAI GAMBAR -->
+                <button onclick="unduhGambarBukti()" class="btn-unduh">🖼️ Unduh Bukti Kenaikan (Gambar .png)</button>
             </div>
         </div>
 
@@ -150,13 +147,16 @@
     </div>
 </div>
 
+<!-- Elemen Canvas Tersembunyi Untuk Render Gambar -->
+<canvas id="invoiceCanvas"></canvas>
+
 <script>
     // Database Resmi Berdasarkan Berkas Rapor Kelas VII G SMP Negeri 4 Amlapura
     const dataSiswa = {
         "0137300021": {
             nama: "I GEDE ARYA SUPUTRA",
             capai: "Sangat Baik (Berhasil Meraih Peringkat 5 Besar Kelas)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan perkembangan belajar yang sangat baik serta kedisiplinan sikap yang positif selama semester ini. Tetap pertahankan konsistensi, semangat belajar, dan rasa tanggung jawab yang tinggi guna menyongsong capaian yang lebih baik pada jenjang kelas berikutnya."
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan perkembangan belajar yang sangat baik serta kedisiplinan sikap yang positif selama semester ini. Tetap pertahaman konsistensi, semangat belajar, dan rasa tanggung jawab yang tinggi guna menyongsong capaian yang lebih baik pada jenjang kelas berikutnya."
         },
         "0139556904": {
             nama: "I GEDE SUDARSANA",
@@ -266,7 +266,7 @@
         "0136055929": {
             nama: "NI KOMANG AMELIA TRISNAWATI",
             capai: "Baik (Berhasil Memasuki Posisi Peringkat 11 Besar Kelas)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, and meraih hasil yang lebih baik lagi."
         },
         "3121918554": {
             nama: "NI KOMANG DEWI CITRA LESTARI",
@@ -310,7 +310,7 @@
         }
     };
 
-    let currentNisn = ""; // Menyimpan NISN aktif untuk keperluan unduhan
+    let currentNisn = ""; 
 
     function prosesCari() {
         const input = document.getElementById('nisnInput').value.trim();
@@ -327,24 +327,19 @@
         errorBoks.style.display = 'none';
 
         if (dataSiswa[input]) {
-            currentNisn = input; // Set NISN siswa yang sedang dibuka
+            currentNisn = input; 
 
-            // 1. Ganti Informasi Profil Menjadi Profil Siswa
             imgProfil.src = "foto/" + input + ".jpg";
             namaProfil.innerText = dataSiswa[input].nama;
             statusProfil.innerText = "Siswa Kelas VII G";
 
-            // 2. Isi Detail Rapor Siswa
             document.getElementById('txtNama').innerText = dataSiswa[input].nama;
             document.getElementById('txtNisn').innerText = input;
             document.getElementById('txtPencapaian').innerText = dataSiswa[input].capai;
             document.getElementById('txtPembinaan').innerText = dataSiswa[input].bina;
 
-            // 3. Sistem Tukar Bilah
             kontenGuru.style.display = 'none';
             kontenSiswa.style.display = 'block';
-
-            // 4. Sembunyikan Bilah Pencarian NISN setelah berhasil
             searchBox.style.display = 'none';
         } else {
             currentNisn = "";
@@ -359,42 +354,127 @@
         }
     }
 
-    // FUNGSI BARU: Mengunduh Bukti Kenaikan Kelas dalam format teks formal (.txt)
-    function unduhBukti() {
+    // FUNGSI BARU: Generate Surat Digital Otomatis ke Format Gambar PNG Beresolusi Tinggi
+    function unduhGambarBukti() {
         if (!currentNisn || !dataSiswa[currentNisn]) return;
 
         const detail = dataSiswa[currentNisn];
-        const textContent = `===========================================================
-               SMP NEGERI 4 AMLAPURA
-        SURAT KETERANGAN EVALUASI CAPAIAN BELAJAR
-               TAHUN PELAJARAN 2025/2026
-===========================================================
+        const canvas = document.getElementById("invoiceCanvas");
+        const ctx = canvas.getContext("2d");
 
-Nama Lengkap Siswa : ${detail.nama}
-NISN               : ${currentNisn}
-Kelas              : VII G
-Status Kelulusan   : NAIK KE KELAS VIII
+        // Ukuran Kertas Sertifikat / Gambar Pengumuman (Lebar 800px)
+        canvas.width = 800;
+        canvas.height = 950;
 
------------------------------------------------------------
-PENCAPAIAN / EVALUASI AKADEMIK:
------------------------------------------------------------
-${detail.capai}
+        // 1. Latar Belakang Putih Bersih
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
------------------------------------------------------------
-CATATAN PEMBINAAN & MOTIVASI WALI KELAS:
------------------------------------------------------------
-${detail.bina}
+        // 2. Desain Header Biru Gradasi (Khas Sekolah)
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, 140);
+        gradient.addColorStop(0, "#1e3a8a");
+        gradient.addColorStop(1, "#3b82f6");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, 140);
 
------------------------------------------------------------
-Diterbitkan secara digital oleh Sistem Informasi Akademik
-SMP Negeri 4 Amlapura pada Juni 2026.
-Wali Kelas: I Nengah Sumanadi, S.Pd.
-===========================================================`;
+        // 3. Teks Header
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "center";
+        ctx.font = "bold 26px Arial";
+        ctx.fillText("SMP NEGERI 4 AMLAPURA", canvas.width / 2, 55);
+        ctx.font = "16px Arial";
+        ctx.fillText("SURAT KETERANGAN EVALUASI CAPAIAN BELAJAR AKHIR TAHUN", canvas.width / 2, 90);
+        ctx.font = "italic 14px Arial";
+        ctx.fillText("Tahun Pelajaran 2025/2026", canvas.width / 2, 115);
 
-        const blob = new Blob([textContent], { type: "text/plain;charset=utf-8" });
+        // 4. Garis Pembatas Atas & Informasi Utama
+        ctx.textAlign = "left";
+        ctx.fillStyle = "#1f2937";
+        
+        let currentY = 200;
+        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("NAMA LENGKAP SISWA", 60, currentY);
+        currentY += 28;
+        ctx.font = "bold 22px Arial"; ctx.fillStyle = "#1e3a8a"; ctx.fillText(detail.nama, 60, currentY);
+        
+        currentY += 50;
+        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("NOMOR INDUK SISWA NASIONAL (NISN)", 60, currentY);
+        currentY += 25;
+        ctx.font = "18px Arial"; ctx.fillStyle = "#111827"; ctx.fillText(currentNisn, 60, currentY);
+
+        currentY += 50;
+        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("KELAS / KELOMPOK BELAJAR", 60, currentY);
+        currentY += 25;
+        ctx.font = "18px Arial"; ctx.fillStyle = "#111827"; ctx.fillText("VII G (Tujuh G)", 60, currentY);
+
+        currentY += 50;
+        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("STATUS KELULUSAN AKHIR TAHUN", 60, currentY);
+        currentY += 30;
+        // Label Kotak Hijau Status Sukses Naik Kelas
+        ctx.fillStyle = "#10b981";
+        ctx.fillRect(60, currentY - 22, 230, 32);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 16px Arial";
+        ctx.fillText("  NAIK KE KELAS VIII", 65, currentY);
+
+        // 5. Kotak Evaluasi Akademik
+        currentY += 60;
+        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("PENCAPAIAN / EVALUASI AKADEMIK", 60, currentY);
+        currentY += 15;
+        ctx.fillStyle = "#f0fdf4";
+        ctx.fillRect(60, currentY, 680, 45);
+        ctx.strokeStyle = "#bbf7d0";
+        ctx.strokeRect(60, currentY, 680, 45);
+        ctx.fillStyle = "#065f46";
+        ctx.font = "bold 15px Arial";
+        ctx.fillText(detail.capai, 75, currentY + 28);
+
+        // 6. Catatan Amanat & Pembinaan Bungkus Baris (Word Wrap)
+        currentY += 90;
+        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("CATATAN PEMBINAAN & MOTIVASI WALI KELAS", 60, currentY);
+        currentY += 25;
+        ctx.font = "15px Arial"; ctx.fillStyle = "#374151";
+        
+        function wrapText(context, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            for(let n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                let metrics = context.measureText(testLine);
+                let testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    context.fillText(line, x, y);
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            context.fillText(line, x, y);
+            return y;
+        }
+        currentY = wrapText(ctx, detail.bina, 60, currentY, 680, 24);
+
+        // 7. Kaki Dokumen Resmi & Tanda Tangan Digital Wali Kelas
+        currentY += 70;
+        ctx.strokeStyle = "#e5e7eb";
+        ctx.beginPath(); ctx.moveTo(60, currentY); ctx.lineTo(740, currentY); ctx.stroke();
+        
+        currentY += 35;
+        ctx.font = "13px Arial"; ctx.fillStyle = "#9ca3af";
+        ctx.fillText("Dokumen digital ini sah dikeluarkan oleh sistem database rapor sekolah.", 60, currentY);
+        
+        ctx.textAlign = "right";
+        ctx.font = "bold 14px Arial"; ctx.fillStyle = "#1f2937";
+        ctx.fillText("Wali Kelas VII G", 740, currentY);
+        currentY += 45;
+        ctx.font = "italic bold 15px Arial"; ctx.fillStyle = "#1e3a8a";
+        ctx.fillText("I Nengah Sumanadi, S.Pd.", 740, currentY);
+
+        // 8. Trigger Aksi Unduh Gambar Browser otomatis (.png)
+        const imageURI = canvas.toDataURL("image/png");
         const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `Bukti_Kenaikan_${currentNisn}_${detail.nama.replace(/ /g, "_")}.txt`;
+        link.href = imageURI;
+        link.download = `Bukti_Kenaikan_${currentNisn}.png`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
