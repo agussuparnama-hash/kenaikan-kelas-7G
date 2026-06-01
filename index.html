@@ -21,8 +21,8 @@
         .header h1 { margin: 0; font-size: 24px; letter-spacing: 0.5px; }
         .header h2 { margin: 5px 0 0 0; font-size: 16px; font-weight: normal; opacity: 0.9; }
         
-        /* Kotak Pencarian */
-        .search-box { padding: 25px; background: #f8fafc; text-align: center; border-bottom: 1px solid #e5e7eb; }
+        /* Kotak Pencarian (Bilah Masukan NISN) */
+        .search-box { padding: 25px; background: #f8fafc; text-align: center; border-bottom: 1px solid #e5e7eb; transition: all 0.3s ease-in-out; }
         .input-group { display: flex; gap: 10px; max-width: 420px; margin: 15px auto 0; }
         .input-nisn { flex: 1; padding: 12px 15px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 16px; outline: none; transition: all 0.3s; }
         .input-nisn:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
@@ -34,7 +34,7 @@
         .profile-container { padding: 30px 25px; text-align: center; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Bingkai Oval Memanjang Vertikal agar Foto Tidak Terpotong */
+        /* Bingkai Oval Memanjang Vertikal */
         .photo-box { margin-bottom: 15px; position: relative; display: inline-block; }
         .profile-img { width: 135px; height: 180px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); object-fit: cover; }
         
@@ -56,19 +56,25 @@
         .label { font-size: 11px; text-transform: uppercase; color: #6b7280; font-weight: bold; letter-spacing: 0.5px; }
         .value { font-size: 16px; font-weight: 500; margin-top: 4px; color: #111827; }
         
+        /* Tombol Kembali / Cek NISN Lain */
+        .btn-kembali { display: block; width: 100%; max-width: 200px; margin: 20px auto 0; background: #4b5563; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; text-align: center; transition: background 0.3s; }
+        .btn-kembali:hover { background: #374151; }
+
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #6b7280; background: white; border-top: 1px solid #e5e7eb; }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- Bagian Kepala Sekolah & Logo -->
     <div class="header">
         <img src="foto/logo_sekolah.png" class="logo-sekolah" alt="Logo SMPN 4 Amlapura">
         <h1>SMP Negeri 4 Amlapura</h1>
         <h2>Pengumuman Kenaikan Kelas VII G</h2>
     </div>
 
-    <div class="search-box">
+    <!-- Kotak Pencarian NISN (Bilah Masukan NISN) -->
+    <div id="searchBoxBlock" class="search-box">
         <h3 style="margin:0; font-size: 16px; color: var(--primary);">Masukkan NISN Siswa (10 Digit):</h3>
         <div class="input-group">
             <input type="text" id="nisnInput" class="input-nisn" placeholder="Contoh: 0137300021" autocomplete="off">
@@ -77,15 +83,19 @@
         <div id="error" class="error-msg">Nomor NISN tidak ditemukan. Mohon periksa kembali 10 digit NISN siswa dengan benar.</div>
     </div>
 
+    <!-- BILAH UTAMA: Menampilkan Informasi secara Bergantian -->
     <div class="profile-container">
+        
+        <!-- Bagian Foto Dinamis (Bentuk Oval Memanjang Portrait) -->
         <div class="photo-box">
             <img id="profileImage" src="foto/wali_kelas.jpg" class="profile-img" alt="Foto Profil">
         </div>
         
+        <!-- Bagian Judul Nama Dinamis -->
         <div id="profileName" class="profile-title">I Nengah Sumanadi, S.Pd.</div>
         <div id="profileStatus" class="profile-subtitle">Wali Kelas VII G</div>
 
-        <!-- BLOK KONTEN 1: Wali Kelas (Tampilan Awal) -->
+        <!-- BLOK KONTEN 1: Tampilan Default (Wali Kelas) -->
         <div id="teacherContent">
             <div class="poem-box">
                 "Di bawah tatap lembut sang guru pendidik jiwa,<br>
@@ -102,7 +112,7 @@
             </div>
         </div>
 
-        <!-- BLOK KONTEN 2: Profil Hasil Siswa -->
+        <!-- BLOK KONTEN 2: Tampilan Hasil (Profil Siswa) -->
         <div id="studentContent" class="student-profile-box">
             <div class="result-header">
                 <span>HASIL EVALUASI AKHIR SEMESTER</span>
@@ -125,8 +135,12 @@
                     <div class="label">Catatan Pembinaan &amp; Motivasi Wali Kelas</div>
                     <div id="txtPembinaan" class="value" style="line-height: 1.6; text-align: justify; color: #374151;"></div>
                 </div>
+                
+                <!-- Tombol opsional untuk memunculkan kembali bilah pencarian jika ingin mengecek NISN lain -->
+                <button onclick="kembalikePencarian()" class="btn-kembali">Periksa NISN Lain</button>
             </div>
         </div>
+
     </div>
 
     <div class="footer">
@@ -135,167 +149,168 @@
 </div>
 
 <script>
-    // Database Siswa Kelas VII G dengan Bahasa Formal, Sopan, Berwibawa, dan Menyertakan Ucapan Selamat
+    // Database Resmi Berdasarkan Berkas Rapor Kelas VII G SMP Negeri 4 Amlapura
     const dataSiswa = {
         "0137300021": {
             nama: "I GEDE ARYA SUPUTRA",
-            capai: "Sangat Baik (Terpilih dalam Peringkat 5 Besar Kelas)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kesungguhan yang sangat baik dalam proses pembelajaran serta memiliki budi pekerti yang luhur semester ini. Pertahankan konsistensi belajar, kedisiplinan, dan rasa tanggung jawab ini agar pencapaian akademik ke depan dapat semakin gemilang."
+            capai: "Sangat Baik (Berhasil Meraih Peringkat 5 Besar Kelas)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan perkembangan belajar yang sangat baik serta kedisiplinan sikap yang positif selama semester ini. Tetap pertahankan konsistensi, semangat belajar, dan rasa tanggung jawab yang tinggi guna menyongsong capaian yang lebih baik pada jenjang kelas berikutnya."
         },
         "0139556904": {
             nama: "I GEDE SUDARSANA",
-            capai: "Sangat Baik (Terpilih dalam Peringkat 7 Besar Kelas)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Peningkatan kompetensi yang Ananda tunjukkan selama semester ini sangat membanggakan, didukung oleh sikap akhlak yang sangat terpuji. Teruslah mengasah potensi diri dengan penuh percaya diri dan semangat juang yang tinggi."
+            capai: "Sangat Baik (Berhasil Meraih Peringkat 7 Besar Kelas)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan perkembangan belajar yang sangat baik serta kedisiplinan sikap yang positif selama semester ini. Tetap pertahankan konsistensi, semangat belajar, dan rasa tanggung jawab yang tinggi guna menyongsong capaian yang lebih baik pada jenjang kelas berikutnya."
         },
         "3127103528": {
             nama: "I GUSTI NGURAH AGUNG SATWIKA ADI WIGUNA",
-            capai: "Sangat Baik (Terpilih dalam Peringkat 9 Besar Kelas)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Kamajuan akademik yang konsisten didorong oleh partisipasi belajar yang positif mencerminkan kedewasaan Ananda. Pertahankan semangat belajar yang baik ini dalam menempuh jenjang pendidikan selanjutnya."
+            capai: "Sangat Baik (Berhasil Meraih Peringkat 9 Besar Kelas)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan perkembangan belajar yang sangat baik serta kedisiplinan sikap yang positif selama semester ini. Tetap pertahankan konsistensi, semangat belajar, dan rasa tanggung jawab yang tinggi guna menyongsong capaian yang lebih baik pada jenjang kelas berikutnya."
         },
         "0111836818": {
             nama: "I KADE SUARMA YASA",
-            capai: "Cukup Baik (Aspek Kehadiran dan Ketepatan Waktu Perlu Ditingkatkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Guna mengoptimalkan penyerapan materi pembelajaran pada jenjang berikutnya, Ananda diharapkan dapat lebih meningkatkan kedisiplinan dalam aspek kehadiran di sekolah serta senantiasa menjaga kondisi kesehatan fisik secara prima."
+            capai: "Cukup Baik (Aspek Kehadiran, Absensi, dan Kondisi Kesehatan Perlu Dioptimalkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda diharapkan dapat lebih meningkatkan komitmen kehadiran di sekolah serta senantiasa menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akademik akan semakin terbuka lebar."
         },
         "0138402599": {
             nama: "I KADE SUMERTA",
-            capai: "Cukup Baik (Aspek Penyesuaian Interaksi Sosial Perlu Pendampingan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Kami mengimbau Ananda agar lebih bijak dalam membangun hubungan pertemanan di lingkungan sekolah. Salurkan energi masa muda pada kegiatan pembelajaran kelompok yang positif demi pembentukan karakter yang luhur."
+            capai: "Cukup Baik (Aspek Penyesuaian Interaksi Sosial Remaja Perlu Bimbingan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda terus berupaya membangun hubungan pergaulan yang sehat, positif, dan saling mendukung perkembangan diri di sekolah. Kembangkan sikap optimis serta pola pikir yang jernih agar senantiasa mampu mengambil keputusan yang baik bagi masa depan."
         },
         "3122015437": {
             nama: "I KETUT DIAN MAHENDRA",
-            capai: "Cukup Baik (Aspek Kedisiplinan Absensi Perlu Perhatian Khusus)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ketidakhadiran tanpa keterangan hendaknya diminimalisasi ke depannya. Dengan tingkat presensi yang tinggi dan teratur, pemahaman Ananda terhadap pembelajaran di kelas VIII diyakini akan jauh lebih matang."
+            capai: "Cukup Baik (Aspek Keteraturan Kehadiran dan Absensi Perlu Ditingkatkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda diharapkan dapat lebih memperhatikan tingkat kehadiran di sekolah serta menjaga kondisi kesehatan dengan baik. Dengan fisik yang bugar serta presensi yang teratur, proses penyerapan materi pelajaran akan berjalan jauh lebih optimal."
         },
         "3133992745": {
             nama: "I KETUT PUTRA DARMA YASA",
-            capai: "Cukup Baik (Aspek Kedisiplinan Absensi Perlu Perhatian Khusus)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Kesempatan meraih prestasi akademik terbuka lebar apabila Ananda dapat meningkatkan komitmen kehadiran di kelas. Mari bangun semangat baru untuk lebih rajin menghadiri sesi pembelajaran di jenjang berikutnya."
+            capai: "Cukup Baik (Aspek Keteraturan Kehadiran dan Absensi Perlu Ditingkatkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda diharapkan dapat lebih memperhatikan tingkat kehadiran di sekolah serta menjaga kondisi kesehatan dengan baik. Dengan fisik yang bugar serta presensi yang teratur, proses penyerapan materi pelajaran akan berjalan jauh lebih optimal."
         },
         "0131589554": {
             nama: "I KOMANG GALANG KUSUMA",
-            capai: "Baik (Menunjukkan Progress Perkembangan yang Positif)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Terdapat grafik peningkatan yang menggembirakan pada kompetensi harian Ananda. Harapan kami, ketekunan and kepatuhan terhadap instruksi guru dapat terus ditingkatkan demi capaian yang lebih maksimal."
+            capai: "Baik (Menunjukkan Progress Perkembangan Nilai yang Positif)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan tren perkembangan yang positif dan kemajuan nyata dalam belajar. Diharapkan pada semester mendatang Ananda semakin rajin, disiplin, dan bersungguh-sungguh guna meraih prestasi yang lebih tinggi."
         },
         "0122364962": {
             nama: "I KOMANG SATIA WIRAWAN",
-            capai: "Cukup Baik (Aspek Kehadiran dan Kesehatan Tubuh Perlu Diperhatikan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Menjaga keteraturan kehadiran di kelas sangat erat kaitannya dengan capaian pemahaman belajar. Mohon prioritaskan pola hidup sehat agar aktivitas akademik harian tidak mengalami kendala."
+            capai: "Cukup Baik (Aspek Kehadiran, Absensi, dan Kondisi Kesehatan Perlu Dioptimalkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
         },
         "0132511715": {
             nama: "I MADE ARDIKA DARMA SUSILA",
-            capai: "Baik (Peringkat 10 Besar / Tingkat Kehadiran Perlu Ditingkatkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Secara umum, penguasaan materi pelajaran Ananda sudah sangat memadai hingga menembus jajaran sepuluh besar. Namun, evaluasi mendalam diperlukan pada aspek kehadiran agar hasil luar biasa ini selaras dengan kedisiplinan."
+            capai: "Sangat Baik (Meraih Peringkat 10 Besar / Manajemen Absensi Perlu Perhatian)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "0125614580": {
             nama: "I NENGAH RESTU WIDIANTARA",
-            capai: "Cukup Baik (Fokus Belajar dan Manajemen Pergaulan Perlu Diarahkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Pembentukan pola pikir positif sangat dibutuhkan dalam proses pendewasaan. Kami berharap Ananda dapat menyeimbangkan waktu antara bersosialisasi dan tanggung jawab menyelesaikan tugas-tugas sekolah."
+            capai: "Cukup Baik (Aspek Fokus Belajar dan Interaksi Pergaulan Perlu Diarahkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda dapat menumbuhkan kembali semangat belajar dan senantiasa membangun pergaulan sehat yang mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil langkah yang tepat demi masa depan."
         },
         "0136723244": {
             nama: "I PUTU ARYA KEVIN PUTRA PRATAMA",
-            capai: "Cukup Baik (Motivasi Internal Belajar Perlu Dioptimalkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diperlukan penumbuhan rasa percaya diri dan keteguhan sikap dalam diri Ananda saat mengikuti pembelajaran. Percayalah pada kapasitas intelektual yang Ananda miliki untuk menyambut tantangan di kelas VIII."
+            capai: "Cukup Baik (Aspek Semangat Belajar dan Motivasi Internal Perlu Dioptimalkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda senantiasa memupuk komitmen belajar yang kuat dan membangun lingkungan pergaulan yang sehat guna menunjang prestasi. Kembangkan sikap optimis serta pola pikir yang berorientasi maju demi hasil studi yang lebih baik."
         },
         "0139406499": {
             nama: "I PUTU ARYA MAHENDRA",
-            capai: "Cukup Baik (Fokus Akademik dan Lingkungan Sosial Perlu Diselaraskan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Menjaga pengaruh pergaulan sebaya agar tetap mengarah pada hal produktif adalah kunci kesuksesan remaja. Tingkatkan fokus belajar secara mandiri demi pencapaian rapor yang lebih seimbang."
+            capai: "Cukup Baik (Aspek Fokus Belajar dan Manajemen Pergaulan Perlu Diarahkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda dapat menumbuhkan kembali semangat belajar dan senantiasa membangun pergaulan sehat yang mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil langkah yang tepat demi masa depan."
         },
         "0121847212": {
             nama: "I WAYAN SUGIARTA",
-            capai: "Cukup Baik (Fokus Belajar Mandiri Perlu Dikembangkan Kembali)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Mengembangkan pemikiran yang positif dan terarah akan membantu Ananda memahami esensi pendidikan di sekolah. Gunakan waktu senggang untuk membaca buku pelajaran sebagai modal naik ke kelas VIII."
+            capai: "Cukup Baik (Aspek Fokus Belajar dan Manajemen Pergaulan Perlu Diarahkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda dapat menumbuhkan kembali semangat belajar dan senantiasa membangun pergaulan sehat yang mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil langkah yang tepat demi masa depan."
         },
         "0134066990": {
             nama: "I WAYAN WIDIARTA YASA",
-            capai: "Baik (Aspek Kedisiplinan Kehadiran Menjadi Catatan Evaluasi)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Kemampuan memahami konsep materi pelajaran sudah berkembang dengan baik. Apabila didukung dengan komitmen kehadiran yang tinggi di sekolah, prestasi Ananda diprediksi akan meningkat signifikan."
+            capai: "Baik (Aspek Konsistensi Kedisiplinan Absensi Perlu Perhatian)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan perkembangan yang positif dalam kegiatan belajar mengajar. Diharapkan tingkat kehadiran dapat lebih ditingkatkan lagi agar proses pemahaman materi di tingkat selanjutnya menjadi maksimal."
         },
         "0134268627": {
             nama: "MADE RADITYA ADINATA",
-            capai: "Cukup Baik (Pola Pikir Belajar dan Lingkungan Remaja Perlu Diarahkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Upayakan untuk terus memupuk kedisiplinan dan menjaga diri dari sirkel pertemanan yang kurang produktif. Fokuskan perhatian utama Ananda sepenuhnya pada pemenuhan tugas akademik di masa mendatang."
+            capai: "Cukup Baik (Aspek Fokus Belajar dan Manajemen Pergaulan Perlu Diarahkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda dapat menumbuhkan kembali semangat belajar dan senantiasa membangun pergaulan sehat yang mendukung perkembangan diri. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil langkah yang tepat demi masa depan."
         },
         "0126173614": {
             nama: "NI KADE SINTYA PUSPITA DEWI",
-            capai: "Sangat Baik (Peringkat 4 Besar / Pembenahan Aspek Presensi)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Selamat atas keberhasilan menempati posisi empat besar kelas, sebuah prestasi akademik yang luar biasa. Guna menyempurnakan capaian ini, mohon tingkatkan komitmen ketepatan kehadiran di kelas."
+            capai: "Sangat Baik (Meraih Peringkat 4 Besar / Aspek Presensi Menjadi Catatan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "0137050105": {
             nama: "NI KADEK MAWAR AYUNINDA DEWI",
-            capai: "Cukup Baik (Motivasi Kelas dan Keteraturan Kehadiran Perlu Ditingkatkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Memiliki ketetapan hati dalam belajar serta pengelolaan kehadiran yang konsisten akan sangat membantu Ananda menyerap kurikulum baru di Kelas VIII. Tetap semangat dan pantang menyerah."
+            capai: "Cukup Baik (Aspek Semangat Mengikuti Pembelajaran dan Absensi Perlu Perhatian)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda senantiasa memupuk kembali semangat belajar dan bijak dalam menjalin pergaulan kelompok. Kembangkan motivasi diri serta pola pikir yang positif agar konsistensi nilai akademik dapat terus terjaga."
         },
         "3131087453": {
             nama: "NI KETUT LUSIANI",
-            capai: "Cukup Baik (Aspek Kehadiran Fisik Perlu Ditingkatkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Keberadaan Ananda secara fisik dalam ruang kelas memegang peranan krusial bagi ketuntasan materi kompetensi harian. Jadikan momentum liburan ini untuk menyusun strategi waktu yang lebih tertib."
+            capai: "Cukup Baik (Aspek Kedisiplinan Absensi Harian Perlu Ditingkatkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
         },
         "0137128909": {
             nama: "NI KETUT RISAYANA SAVITRI",
-            capai: "Sangat Baik (Terpilih dalam Peringkat 2 Besar Kelas)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Prestasi gemilang sebagai Peringkat 2 merupakan cerminan nyata dari ketekunan, integritas, dan kecerdasan yang Ananda miliki. Terus pertahankan budaya mutu belajar ini di tingkat kelas yang lebih tinggi."
+            capai: "Sangat Luar Biasa (Berhasil Meraih Peringkat 2 Besar Kelas)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang sangat baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "0139571098": {
             nama: "NI KETUT SRI PURNAMA SARI",
-            capai: "Sangat Luar Biasa (Terpilih sebagai Juara 1 / Peringkat Teratas)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Apresiasi tertinggi kami sampaikan atas keberhasilan Ananda meraih Peringkat 1 di Kelas VII G. Penguasaan kompetensi yang sempurna serta adab yang mulia ini hendaknya menjadi inspirasi bagi rekan sejawat."
+            capai: "Sangat Luar Biasa (Berhasil Meraih Peringkat 1 / Juara Umum Kelas)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan prestasi dan kemajuan yang sangat gemilang dalam belajar serta keteladanan sikap yang luar biasa sepanjang semester ini. Terus pertahankan ritme belajar, disiplin, dan tanggung jawab ini. Semoga prestasi mulia ini terus konsisten di jenjang kelas VIII."
         },
         "0126286685": {
             nama: "NI KETUT SUPRIANI",
-            capai: "Baik (Menunjukkan Peningkatan Mutu Belajar yang Signifikan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Kerja keras yang Ananda lakukan sepanjang semester ini telah membuahkan perubahan hasil belajar yang positif. Pertahankan kontinuitas ini agar pencapaian di kelas baru nanti semakin optimal."
+            capai: "Baik (Menunjukkan Peningkatan Kompetensi Akademik yang Nyata)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "0136055929": {
             nama: "NI KOMANG AMELIA TRISNAWATI",
-            capai: "Baik (Berada pada Posisi 11 Besar Kelas)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Hasil evaluasi mencatatkan kompetensi Ananda yang stabil dan memuaskan di peringkat sebelas. Kami mendorong Ananda untuk menambah durasi belajar mandiri agar mampu menembus jajaran sepuluh besar."
+            capai: "Baik (Berhasil Memasuki Posisi Peringkat 11 Besar Kelas)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "3121918554": {
             nama: "NI KOMANG DEWI CITRA LESTARI",
-            capai: "Sangat Baik (Terpilih dalam Peringkat 3 Besar Kelas)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Keberhasilan menduduki peringkat tiga besar membuktikan kapasitas intelektual Ananda yang unggul. Semoga pencapaian prestasi ini dibarengi dengan kerendahan hati serta kepemimpinan yang baik."
+            capai: "Sangat Baik (Berhasil Meraih Peringkat 3 Besar Kelas)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang sangat baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "3133934407": {
             nama: "NI KOMANG MULYA NINGSIH",
-            capai: "Baik (Peringkat 8 Besar / Aspek Presensi Menjadi Catatan Penting)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Potensi inteligensi Ananda sangat besar terbukti dari capaian delapan besar kelas. Harapan kami, komitmen kehadiran di masa datang harus diperbaiki agar tidak mendegradasi nilai akademik."
+            capai: "Baik (Meraih Peringkat 8 Besar / Komitmen Presensi Perlu Pembenahan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "0121570672": {
             nama: "NI KOMANG NOVI SINTIAWATI",
-            capai: "Cukup Baik (Daya Juang dan Fokus Belajar Perlu Dioptimalkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Kami mengajak Ananda untuk lebih optimistis dalam memandang potensi masa depan diri sendiri. Kurangi keraguan dan bangun komunikasi aktif bersama guru di kelas demi pemahaman materi yang utuh."
+            capai: "Cukup Baik (Aspek Motivasi Kedalaman Belajar Perlu Dioptimalkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda terus memupuk ketekunan belajar dan senantiasa membangun komunikasi yang konstruktif di kelas. Kembangkan sikap optimis serta pola pikir positif agar mampu mengambil keputusan yang baik bagi peningkatan prestasi akademismu."
         },
         "0139238918": {
             nama: "NI KOMANG SINTYA WULANDARI",
-            capai: "Baik (Menunjukkan Kedewasaan Belajar yang Berkembang)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Konsistensi nilai tugas harian menunjukkan keseriusan belajar yang matang. Pertahankan kesantunan perilakumu dan jadilah pribadi yang terus berproses ke arah kemajuan."
+            capai: "Baik (Menunjukkan Tren Kenaikan Capaian Studi yang Baik)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "0132479567": {
             nama: "NI LUH INDAH SARI",
-            capai: "Sangat Baik (Terpilih dalam Peringkat 6 Besar Kelas)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Penguasaan ranah kognitif yang sangat stabil dipadukan dengan kepribadian mandiri yang menonjol. Pertahankan ritme belajar yang baik ini untuk mengukir prestasi gemilang berikutnya."
+            capai: "Sangat Baik (Berhasil Meraih Peringkat 6 Besar Kelas)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang sangat baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "3124911015": {
             nama: "NI LUH RATNANINGSIH",
-            capai: "Baik (Stabilitas Nilai Akademik Menunjukkan Kenaikan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Hasil evaluasi kumulatif mencerminkan adanya ketekunan belajar yang terencana dengan matang. Selalu tingkatkan rasa ingin tahu ilmiah Ananda dalam mempelajari materi pelajaran baru."
+            capai: "Baik (Menunjukkan Tren Kenaikan Capaian Studi yang Baik)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "0119677352": {
             nama: "NI NENGAH SUMARNI",
-            capai: "Cukup Baik (Aspek Partisipasi Aktif Pembelajaran Perlu Ditingkatkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Kami menyarankan Ananda untuk lebih berani berasosiasi dan mengemukakan pendapat positif dalam diskusi kelas. Keberanian tersebut merupakan fondasi penting dalam pembentukan karakter mandiri."
+            capai: "Cukup Baik (Aspek Aktivitas Kelas dan Semangat Belajar Perlu Dipicu)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda senantiasa konsisten menumbuhkan motivasi belajar dan selektif dalam membangun interaksi sosial yang sehat. Kembangkan sikap optimis serta semangat juang yang tinggi demi meraih masa depan yang gemilang."
         },
         "0134620051": {
             nama: "NI WAYAN DINA DITIYANTI",
-            capai: "Cukup Baik (Aspek Keteraturan Presensi Perlu Pembenahan Serius)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Partisipasi belajar tatap muka secara langsung di sekolah adalah kunci utama ketuntasan kurikulum. Jadikan peningkatan kehadiran sebagai komitmen resolusi diri utama Anda di kelas VIII."
+            capai: "Cukup Baik (Aspek Keteraturan Kehadiran dan Absensi Perlu Ditingkatkan)",
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
         }
     };
 
     function prosesCari() {
         const input = document.getElementById('nisnInput').value.trim();
+        const searchBox = document.getElementById('searchBoxBlock');
         const errorBoks = document.getElementById('error');
         
         const imgProfil = document.getElementById('profileImage');
@@ -308,22 +323,25 @@
         errorBoks.style.display = 'none';
 
         if (dataSiswa[input]) {
-            // 1. Ganti Profil Menjadi Profil Siswa (Gambar Oval Portrait)
+            // 1. Ganti Informasi Profil Menjadi Profil Siswa
             imgProfil.src = "foto/" + input + ".jpg";
             namaProfil.innerText = dataSiswa[input].nama;
             statusProfil.innerText = "Siswa Kelas VII G";
 
-            // 2. Distribusi Data ke Bilah Pengumuman
+            // 2. Isi Detail Raport Siswa di Tabel Dalam
             document.getElementById('txtNama').innerText = dataSiswa[input].nama;
             document.getElementById('txtNisn').innerText = input;
             document.getElementById('txtPencapaian').innerText = dataSiswa[input].capai;
             document.getElementById('txtPembinaan').innerText = dataSiswa[input].bina;
 
-            // 3. Sistem Transisi Bilah Konten
+            // 3. Sistem Tukar Bilah (Sembunyikan Sambutan Guru, Munculkan Nilai Siswa)
             kontenGuru.style.display = 'none';
             kontenSiswa.style.display = 'block';
+
+            // 4. SEMBUNYIKAN BILAH MASUKAN NISN (Sesuai Permintaan)
+            searchBox.style.display = 'none';
         } else {
-            // Rollback ke Profil Wali Kelas apabila NISN tidak valid
+            // Jika NISN tidak valid, pertahankan kotak pencarian dan beri info error
             errorBoks.style.display = 'block';
             imgProfil.src = "foto/wali_kelas.jpg";
             namaProfil.innerText = "I Nengah Sumanadi, S.Pd.";
@@ -331,7 +349,21 @@
             
             kontenGuru.style.display = 'block';
             kontenSiswa.style.display = 'none';
+            searchBox.style.display = 'block';
         }
+    }
+
+    function kembalikePencarian() {
+        // Fungsi pembantu agar pengguna bisa memunculkan kembali bilah pencarian jika ingin memeriksa siswa lain
+        document.getElementById('searchBoxBlock').style.display = 'block';
+        document.getElementById('teacherContent').style.display = 'block';
+        document.getElementById('studentContent').style.display = 'none';
+        document.getElementById('nisnInput').value = '';
+        
+        // Reset profil ke Wali Kelas
+        document.getElementById('profileImage').src = "foto/wali_kelas.jpg";
+        document.getElementById('profileName').innerText = "I Nengah Sumanadi, S.Pd.";
+        document.getElementById('profileStatus').innerText = "Wali Kelas VII G";
     }
 
     document.getElementById('nisnInput').addEventListener('keypress', function (e) {
