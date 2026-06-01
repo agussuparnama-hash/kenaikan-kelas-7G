@@ -13,7 +13,7 @@
             --text: #1f2937;
         }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 750px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .container { max-width: 700px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
         
         /* Header dengan Logo Sekolah */
         .header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; padding: 30px 20px; position: relative; }
@@ -25,28 +25,18 @@
         .profile-container { padding: 30px 25px; text-align: center; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* TAMPILAN DINAMIS HASIL SISWA (Hanya muncul saat NISN dicari) */
-        .student-header-box { display: none; text-align: center; margin-bottom: 25px; }
-        
         /* Bingkai Oval Memanjang Vertikal */
-        .photo-box { margin-bottom: 10px; position: relative; display: inline-block; }
+        .photo-box { margin-bottom: 15px; position: relative; display: inline-block; }
         .profile-img { width: 135px; height: 180px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); object-fit: cover; }
         
-        .profile-title { font-size: 22px; font-weight: bold; color: var(--primary); margin-top: 5px; }
-        .profile-subtitle { font-size: 16px; color: #6b7280; font-style: italic; margin-top: 2px; margin-bottom: 15px; }
+        .profile-title { font-size: 22px; font-weight: bold; color: var(--primary); margin-top: 10px; }
+        .profile-subtitle { font-size: 16px; color: #6b7280; font-style: italic; margin-top: 2px; margin-bottom: 25px; }
         
-        /* BARU: Layout Berdampingan (Kiri: Profil Wali Kelas, Kanan: Puisi) */
-        .teacher-layout { display: flex; gap: 25px; align-items: center; text-align: left; margin-bottom: 30px; border-bottom: 2px solid #e5e7eb; padding-bottom: 25px; }
-        .teacher-left { flex: 0 0 160px; text-align: center; }
-        .teacher-left .profile-img { width: 120px; height: 160px; }
-        .teacher-left .profile-title { font-size: 16px; margin-top: 8px; line-height: 1.3; }
-        .teacher-left .profile-subtitle { font-size: 14px; margin-bottom: 0; }
-        
-        /* Puisi Sebelah Kanan */
-        .poem-box { flex: 1; padding: 20px; border-left: 4px solid var(--primary); font-style: italic; color: #374151; line-height: 1.6; font-size: 15px; background: #fafafa; border-radius: 0 8px 8px 0; }
-        
-        /* Salam Pembuka & Kotak Pencarian */
+        /* Tampilan Puisi Kembali ke Bawah Profil */
+        .poem-box { padding: 20px; border-top: 2px solid #e5e7eb; border-bottom: 2px solid #e5e7eb; font-style: italic; color: #374151; line-height: 1.7; font-size: 16px; margin-bottom: 25px; background: #fafafa; text-align: center; }
         .welcome-text { text-align: justify; font-size: 16px; background: #f1f5f9; padding: 20px; border-left: 5px solid var(--secondary); border-radius: 4px; line-height: 1.7; margin-bottom: 30px; }
+        
+        /* Kotak Pencarian NISN */
         .search-box { padding: 20px; background: #f8fafc; text-align: center; border: 1px solid #e2e8f0; border-radius: 10px; margin-top: 20px; transition: all 0.3s ease-in-out; }
         .input-group { display: flex; gap: 10px; max-width: 450px; margin: 15px auto 0; }
         .input-nisn { flex: 1; padding: 12px 15px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 16px; outline: none; transition: all 0.3s; }
@@ -87,30 +77,26 @@
 
     <div class="profile-container">
         
-        <!-- BLOK KONTEN 1: TAMPILAN AWAL (WALI KELAS BERDAMPINGAN DENGAN PUISI) -->
+        <!-- Bagian Foto Profil Dinamis (Wali Kelas / Siswa) -->
+        <div class="photo-box">
+            <img id="profileImage" src="foto/wali_kelas.jpg" class="profile-img" alt="Foto Profil">
+        </div>
+        
+        <div id="profileName" class="profile-title">I Nengah Sumanadi, S.Pd.</div>
+        <div id="profileStatus" class="profile-subtitle">Wali Kelas VII G</div>
+
+        <!-- BLOK KONTEN 1: Tampilan Awal Berkas Wali Kelas -->
         <div id="teacherContent">
-            <div class="teacher-layout">
-                <!-- Sisi Kiri: Foto dan Identitas Wali Kelas -->
-                <div class="teacher-left">
-                    <div class="photo-box">
-                        <img src="foto/wali_kelas.jpg" class="profile-img" alt="Foto Wali Kelas">
-                    </div>
-                    <div class="profile-title">I Nengah Sumanadi, S.Pd.</div>
-                    <div class="profile-subtitle">Wali Kelas VII G</div>
-                </div>
-                
-                <!-- Sisi Kanan: Bait Puisi / Amanat -->
-                <div class="poem-box">
-                    "Di bawah tatap lembut sang guru pendidik jiwa,<br>
-                    Aksara demi aksara dirajut menjadi lentera kehidupan.<br>
-                    Belajar bukanlah sekadar menghafal bait cerita,<br>
-                    Melainkan menempah diri menembus batas masa depan.<br><br>
-                    Setiap peluh tekadmu hari ini adalah bekal esok hari,<br>
-                    Teruslah melangkah tegak, gapai mimpi setinggi prestasi."
-                </div>
+            <!-- Puisi Kembali di Posisi Bawah Profil Nama -->
+            <div class="poem-box">
+                "Di bawah tatap lembut sang guru pendidik jiwa,<br>
+                Aksara demi aksara dirajut menjadi lentera kehidupan.<br>
+                Belajar bukanlah sekadar menghafal bait cerita,<br>
+                Melainkan menempah diri menembus batas masa depan.<br><br>
+                Setiap peluh tekadmu hari ini adalah bekal esok hari,<br>
+                Teruslah melangkah tegak, gapai mimpi setinggi prestasi."
             </div>
             
-            <!-- Salam Pembuka -->
             <div class="welcome-text">
                 <strong>Om Swastyastu,</strong><br><br>
                 Selamat datang kami ucapkan kepada Bapak/Ibu Orang Tua/Wali murid serta seluruh siswa kelas VII G. 
@@ -118,7 +104,6 @@
                 Silakan masukkan 10 digit NISN siswa secara lengkap pada kolom pencarian di bawah ini untuk memeriksa hasil capaian belajar serta status resmi kenaikan kelas menuju Kelas VIII.
             </div>
 
-            <!-- Bilah Masukan NISN Paling Bawah -->
             <div id="searchBoxBlock" class="search-box">
                 <h3 style="margin:0; font-size: 17px; color: var(--primary);">Masukkan NISN Siswa (10 Digit):</h3>
                 <div class="input-group">
@@ -129,15 +114,7 @@
             </div>
         </div>
 
-        <!-- BLOK KONTEN 2: TAMPILAN DINAMIS PROFIL HASIL SISWA -->
-        <div id="studentHeader" class="student-header-box">
-            <div class="photo-box">
-                <img id="studentProfileImage" src="" class="profile-img" alt="Foto Siswa">
-            </div>
-            <div id="studentProfileName" class="profile-title"></div>
-            <div class="profile-subtitle">Siswa Kelas VII G</div>
-        </div>
-
+        <!-- BLOK KONTEN 2: Hasil Evaluasi Profil Rapor Siswa -->
         <div id="studentContent" class="student-profile-box">
             <div class="result-header">
                 <span>HASIL EVALUASI AKHIR SEMESTER</span>
@@ -235,7 +212,7 @@
         "0136723244": {
             nama: "I PUTU ARYA KEVIN PUTRA PRATAMA",
             capai: "Cukup Baik (Aspek Semangat Belajar dan Motivasi Internal Perlu Dioptimalkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda senantiasa memupuk komitmen belajar yang kuat and membangun lingkungan pergaulan yang sehat guna menunjang prestasi. Kembangkan sikap optimis serta pola pikir yang berorientasi maju demi hasil studi yang lebih baik."
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Diharapkan Ananda senantiasa memupuk komitmen belajar yang kuat dan membangun lingkungan pergaulan yang sehat guna menunjang prestasi. Kembangkan sikap optimis serta pola pikir yang berorientasi maju demi hasil studi yang lebih baik."
         },
         "0139406499": {
             nama: "I PUTU ARYA MAHENDRA",
@@ -270,7 +247,7 @@
         "3131087453": {
             nama: "NI KETUT LUSIANI",
             capai: "Cukup Baik (Aspek Kedisiplinan Absensi Harian Perlu Ditingkatkan)",
-            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
+            bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat and kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
         },
         "0137128909": {
             nama: "NI KETUT RISAYANA SAVITRI",
@@ -289,7 +266,7 @@
         },
         "0136055929": {
             nama: "NI KOMANG AMELIA TRISNAWATI",
-            capai: "Baik (Tingkatkan semangat belajar, serta keaktifan dan kepercayaan diri dalam mengikuti pembelajaran)",
+            capai: "Baik (Berhasil Memasuki Posisi Peringkat 11 Besar Kelas)",
             bina: "Selamat! Ananda dinyatakan naik kelas ke kelas VIII. Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
         },
         "3121918554": {
@@ -334,23 +311,29 @@
         }
     };
 
-   let currentNisn = ""; 
+    let currentNisn = ""; 
 
     function prosesCari() {
         const input = document.getElementById('nisnInput').value.trim();
+        const searchBox = document.getElementById('searchBoxBlock');
         const errorBoks = document.getElementById('error');
+        
+        const imgProfil = document.getElementById('profileImage');
+        const namaProfil = document.getElementById('profileName');
+        const statusProfil = document.getElementById('profileStatus');
         
         const kontenGuru = document.getElementById('teacherContent');
         const kontenSiswa = document.getElementById('studentContent');
-        const headerSiswa = document.getElementById('studentHeader');
 
         errorBoks.style.display = 'none';
 
         if (dataSiswa[input]) {
             currentNisn = input; 
 
-            document.getElementById('studentProfileImage').src = "foto/" + input + ".jpg";
-            document.getElementById('studentProfileName').innerText = dataSiswa[input].nama;
+            // Ganti foto profil atas menjadi foto siswa terkait
+            imgProfil.src = "foto/" + input + ".jpg";
+            namaProfil.innerText = dataSiswa[input].nama;
+            statusProfil.innerText = "Siswa Kelas VII G";
 
             document.getElementById('txtNama').innerText = dataSiswa[input].nama;
             document.getElementById('txtNisn').innerText = input;
@@ -358,21 +341,23 @@
             document.getElementById('txtPembinaan').innerText = dataSiswa[input].bina;
 
             kontenGuru.style.display = 'none';
-            headerSiswa.style.display = 'block';
             kontenSiswa.style.display = 'block';
+            searchBox.style.display = 'none';
         } else {
             currentNisn = "";
             errorBoks.style.display = 'block';
             
+            // Kembalikan ke Profil Wali Kelas asli jika error atau tidak ketemu
+            imgProfil.src = "foto/wali_kelas.jpg";
+            namaProfil.innerText = "I Nengah Sumanadi, S.Pd.";
+            statusProfil.innerText = "Wali Kelas VII G";
+            
             kontenGuru.style.display = 'block';
-            headerSiswa.style.display = 'none';
             kontenSiswa.style.display = 'none';
+            searchBox.style.display = 'block';
         }
     }
 
-    // ==========================================
-    // BAGIAN UTAMA YANG DIPERBARUI DENGAN TTD
-    // ==========================================
     function unduhGambarBukti() {
         if (!currentNisn || !dataSiswa[currentNisn]) return;
 
@@ -420,7 +405,7 @@
         ctx.font = "18px Arial"; ctx.fillStyle = "#111827"; ctx.fillText("VII G (Tujuh G)", 60, currentY);
 
         currentY += 50;
-        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("STATUS KENAIKAN KELAS", 60, currentY);
+        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("STATUS KELULUSAN AKHIR TAHUN", 60, currentY);
         currentY += 30;
         ctx.fillStyle = "#10b981";
         ctx.fillRect(60, currentY - 22, 230, 32);
@@ -464,7 +449,7 @@
         }
         currentY = wrapText(ctx, detail.bina, 60, currentY, 680, 24);
 
-        // Bagian Tanda Tangan Resmi
+        // Kaki Tanda Tangan Gambar Hasil Unduhan
         currentY += 70;
         ctx.strokeStyle = "#e5e7eb";
         ctx.beginPath(); ctx.moveTo(60, currentY); ctx.lineTo(740, currentY); ctx.stroke();
@@ -478,12 +463,10 @@
         ctx.font = "bold 14px Arial"; ctx.fillStyle = "#1f2937";
         ctx.fillText("Wali Kelas VII G", 740, currentY);
 
-        // Memuat file tanda tangan dari folder foto
         const ttdImg = new Image();
         ttdImg.src = "foto/ttd_wali_kelas.png"; 
 
         ttdImg.onload = function() {
-            // Menggambar TTD di kertas virtual (X: 600, Y: setelah jabatan, Lebar: 120px, Tinggi: 60px)
             ctx.drawImage(ttdImg, 600, currentY + 10, 120, 60); 
 
             currentY += 90;
@@ -494,7 +477,6 @@
             triggerDownload(canvas);
         };
 
-        // Jika file gambar TTD tidak ditemukan, tetap unduh tanpa merusak sistem
         ttdImg.onerror = function() {
             currentY += 90;
             ctx.textAlign = "right";
@@ -518,3 +500,6 @@
         if (e.key === 'Enter') { prosesCari(); }
     });
 </script>
+
+</body>
+</html>
