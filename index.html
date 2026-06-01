@@ -18,8 +18,8 @@
         /* Header dengan Logo Sekolah */
         .header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; padding: 30px 20px; position: relative; }
         .logo-sekolah { width: 85px; height: auto; margin-bottom: 12px; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.2)); }
-        .header h1 { margin: 0; font-size: 24px; letter-spacing: 0.5px; }
-        .header h2 { margin: 5px 0 0 0; font-size: 16px; font-weight: normal; opacity: 0.9; }
+        .header h1 { margin: 0; font-size: 32px; letter-spacing: 0.5px; }
+        .header h2 { margin: 5px 0 0 0; font-size: 24px; font-weight: normal; opacity: 0.9; }
         
         /* Bilah Konten Utama */
         .profile-container { padding: 30px 25px; text-align: center; animation: fadeIn 0.5s ease-in-out; }
@@ -379,11 +379,11 @@
 
         ctx.fillStyle = "#ffffff";
         ctx.textAlign = "center";
-        ctx.font = "bold 26px Arial";
+        ctx.font = "bold 24px Arial";
         ctx.fillText("SMP NEGERI 4 AMLAPURA", canvas.width / 2, 55);
-        ctx.font = "16px Arial";
+        ctx.font = "18px Arial";
         ctx.fillText("SURAT KETERANGAN EVALUASI CAPAIAN BELAJAR AKHIR TAHUN", canvas.width / 2, 90);
-        ctx.font = "italic 14px Arial";
+        ctx.font = "italic 18px Arial";
         ctx.fillText("Tahun Pelajaran 2025/2026", canvas.width / 2, 115);
 
         ctx.textAlign = "left";
@@ -405,7 +405,7 @@
         ctx.font = "18px Arial"; ctx.fillStyle = "#111827"; ctx.fillText("VII G (Tujuh G)", 60, currentY);
 
         currentY += 50;
-        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("STATUS KELULUSAN AKHIR TAHUN", 60, currentY);
+        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("STATUS KENAIKAN KELAS", 60, currentY);
         currentY += 30;
         ctx.fillStyle = "#10b981";
         ctx.fillRect(60, currentY - 22, 230, 32);
