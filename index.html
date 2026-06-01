@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pengumuman Kenaikan Kelas VII G - SMP Negeri 4 Amlapura</title>
+    <!-- Google Fonts & Tailwind CSS untuk Tampilan Modern & Responsif -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <style>
@@ -23,9 +24,12 @@
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col justify-between overflow-hidden" id="mainBody">
 
+    <!-- ================= SALAM PEMBUKA / INTRO SCREEN (12 DETIK) ================= -->
     <div id="introScreen" class="fixed inset-0 bg-blue-950 text-white z-50 flex flex-col justify-between p-6 md:p-12 overflow-y-auto transition-opacity duration-1000">
         
+        <!-- Bagian Atas: Logo & Nama Sekolah -->
         <div class="flex flex-col items-center text-center gap-3">
+            <!-- LOGO SEKOLAH -->
             <img src="logo.png" alt="Logo Sekolah" class="h-20 w-auto object-contain drop-shadow-lg" onerror="this.src='https://placehold.co/150x150/0f172a/ffffff?text=LOGO+SMP'">
             <div>
                 <h1 class="text-2xl md:text-4xl font-black tracking-wider uppercase">SMP Negeri 4 Amlapura</h1>
@@ -33,25 +37,45 @@
             </div>
         </div>
 
+        <!-- Bagian Tengah: Susunan Foto Wali Kelas + 31 Siswa & Puisi -->
         <div class="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center my-6">
             
-            <div class="flex flex-col items-center">
-                <div class="relative bg-slate-900 p-3 rounded-2xl shadow-2xl border-2 border-blue-800 max-w-sm w-full text-center">
+            <!-- STRUKTUR FOTO: WALI KELAS DI ATAS, 31 SISWA BERGULIR DI BAWAHNYA -->
+            <div class="flex flex-col items-center gap-4 w-full">
+                <div class="bg-slate-900/80 p-4 rounded-2xl border border-blue-800/80 w-full max-w-sm shadow-2xl flex flex-col items-center gap-4">
                     
-                    <div class="w-full h-80 bg-slate-800 rounded-xl overflow-hidden flex items-center justify-center border border-blue-950">
-                        <img id="slideshowFrame" src="foto/bersama.jpg" alt="Slideshow Foto Kelas VII G" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/1e293b/ffffff?text=Foto+VII+G'">
+                    <!-- FOTO ANDA SEBAGAI WALI KELAS (DI ATAS) -->
+                    <div class="flex flex-col items-center text-center">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-yellow-400 bg-yellow-400/10 px-2.5 py-0.5 rounded-full mb-2">Wali Kelas VII G</span>
+                        <div class="w-28 h-36 bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shadow-md">
+                            <img src="foto/bersama.jpg" alt="Foto Wali Kelas" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/150x200/1e293b/ffffff?text=Wali+Kelas'">
+                        </div>
                     </div>
-                    
-                    <div id="slideshowLabel" class="mt-3 bg-blue-900/60 text-sm py-1.5 rounded-lg font-bold tracking-wide text-yellow-400 uppercase">
-                        Wali Kelas & 31 Siswa VII G
+
+                    <!-- PEMBATAS HALUS -->
+                    <div class="w-full border-t border-dashed border-slate-700/60 my-1"></div>
+
+                    <!-- FOTO 31 SISWA BERGANTI OTOMATIS (DI BAWAH) -->
+                    <div class="flex flex-col items-center text-center w-full">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-blue-300 bg-blue-400/10 px-2.5 py-0.5 rounded-full mb-2">Siswa Kelas VII G</span>
+                        <div class="w-24 h-32 bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shadow-md">
+                            <img id="slideshowFrame" src="" alt="Foto Profil Siswa" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/150x200/1e293b/ffffff?text=Siswa'">
+                        </div>
+                        <!-- Label Nama Siswa yang Sedang Tampil -->
+                        <div id="slideshowLabel" class="mt-2 text-xs font-bold tracking-wide text-slate-300 uppercase truncate max-w-full">
+                            Memuat Nama...
+                        </div>
                     </div>
+
                 </div>
             </div>
 
+            <!-- PUISI TENTANG GURU DAN BELAJAR -->
             <div class="bg-blue-900/40 border border-blue-800/60 p-6 md:p-8 rounded-2xl backdrop-blur-xs flex flex-col justify-center text-center md:text-left">
                 <span class="text-yellow-400 font-bold uppercase tracking-widest text-xs mb-2 block">Salam Pembuka</span>
                 <h2 class="text-xl md:text-2xl font-bold mb-4">Selamat Datang Wali Murid & Siswa VII G</h2>
                 
+                <!-- Bait Puisi -->
                 <div class="font-serif-aesthetic italic text-base md:text-lg text-slate-200 space-y-4 leading-relaxed">
                     <p>"Di bawah atap aksara kita bertamu,<br>Mengubah lelah menjadi bentangan ilmu.<br>Bukan sekadar angka di lembar kertas jala,<br>Tapi tentang jiwa yang siap menyala."</p>
                     <p>"Terima kasih Guru, lentera di malam sepi,<br>Membimbing langkah kami merajut mimpi.<br>Kini satu anak tangga telah kita daki,<br>Bersiap melangkah lebih tinggi, berbakti pada negeri."</p>
@@ -59,8 +83,10 @@
             </div>
         </div>
 
+        <!-- Bagian Bawah: Progress Bar Waktu (12 Detik) & Tombol Lewati -->
         <div class="max-w-md mx-auto w-full text-center flex flex-col items-center gap-3">
             <p class="text-xs text-blue-300">Memuat data pengumuman kenaikan kelas...</p>
+            <!-- Animasi Loading Bar (12 Detik / 12000ms) -->
             <div class="w-full bg-blue-900 h-2 rounded-full overflow-hidden border border-blue-800">
                 <div id="progressBar" class="bg-yellow-400 h-full w-0 transition-all ease-linear" style="transition-duration: 12000ms;"></div>
             </div>
@@ -69,6 +95,10 @@
             </button>
         </div>
     </div>
+    <!-- ================= END OF SALAM PEMBUKA ================= -->
+
+
+    <!-- Header Utama Halaman Utama -->
     <header class="bg-blue-900 text-white shadow-md">
         <div class="max-w-4xl mx-auto px-4 py-6 text-center">
             <h1 class="text-2xl md:text-3xl font-bold tracking-wide uppercase">SMP Negeri 4 Amlapura</h1>
@@ -79,9 +109,11 @@
         </div>
     </header>
 
+    <!-- Konten Utama Pencarian -->
     <main class="max-w-xl w-full mx-auto px-4 py-8 flex-grow">
         <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-100 print-card">
             
+            <!-- Form Input NISN -->
             <div class="no-print mb-6">
                 <h2 class="text-xl font-bold text-slate-800 text-center mb-4">Cek Status Kenaikan Kelas</h2>
                 <div class="space-y-4">
@@ -99,11 +131,14 @@
                 </div>
             </div>
 
+            <!-- Area Hasil Pencarian -->
             <div id="resultArea" class="hidden mt-4 pt-4 border-t border-dashed border-slate-200">
                 
+                <!-- Identitas Card -->
                 <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center mb-6 flex flex-col items-center">
                     <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full no-print">Status Kelulusan</span>
                     
+                    <!-- FOTO PROFIL SISWA INDIVIDU -->
                     <div class="mt-4 w-32 h-40 bg-slate-200 rounded-xl overflow-hidden shadow-inner border-2 border-white flex items-center justify-center">
                         <img id="resFoto" src="" alt="Foto Siswa" class="w-full h-full object-cover hidden" onerror="imgError(this)">
                         <div id="photoPlaceholder" class="text-slate-400 text-xs px-2 text-center flex flex-col items-center gap-1">
@@ -122,6 +157,7 @@
                     </div>
                 </div>
 
+                <!-- Detail Catatan & Pesan Wali Kelas -->
                 <div class="space-y-5 mb-6">
                     <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
                         <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Catatan Prestasi / Pencapaian:</h4>
@@ -134,6 +170,7 @@
                     </div>
                 </div>
 
+                <!-- Tombol Cetak -->
                 <div class="no-print text-center pt-2">
                     <button onclick="window.print()" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white font-bold px-6 py-3 rounded-xl transition shadow-md text-base">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -145,6 +182,7 @@
 
             </div>
 
+            <!-- Error Message -->
             <div id="errorArea" class="hidden mt-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-center text-base font-medium">
                 Maaf, data NISN tidak ditemukan. Mohon periksa kembali nomor yang Anda masukkan.
             </div>
@@ -152,15 +190,15 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-slate-800 text-slate-400 text-center py-4 text-xs border-t border-slate-700">
         <p>&copy; 2026 SMP Negeri 4 Amlapura. All Rights Reserved.</p>
     </footer>
 
+    <!-- JavaScript Data, Intro, & Slideshow 31 Siswa Logic -->
     <script>
-        // Daftar 32 Foto yang akan diputar otomatis pada halaman depan
-        // Terdiri dari file foto bersama Anda + 31 foto profil siswa
-        const daftarFotoIntro = [
-            { file: "foto/bersama.jpg", label: "Wali Kelas & 31 Siswa VII G" },
+        // Daftar 31 Foto profil siswa yang akan diputar otomatis secara bergantian di bawah foto Anda
+        const daftarSiswaIntro = [
             { file: "foto/0137300021.jpg", label: "I GEDE ARYA SUPUTRA" },
             { file: "foto/0139556904.jpg", label: "I GEDE SUDARSANA" },
             { file: "foto/3127103528.jpg", label: "I GUSTI NGURAH AGUNG SATWIKA" },
@@ -184,7 +222,7 @@
             { file: "foto/0139571098.jpg", label: "NI KETUT SRI PURNAMA SARI" },
             { file: "foto/0126286685.jpg", label: "NI KETUT SUPRIANI" },
             { file: "foto/0136055929.jpg", label: "NI KOMANG AMELIA TRISNAWATI" },
-            { file: "foto/3121918554.jpg", label: "NI KOMANG DEWI CITRA LESTARI" },
+            { file: "foto/3121918554.jpg", text: "NI KOMANG DEWI CITRA LESTARI" },
             { file: "foto/3133934407.jpg", label: "NI KOMANG MULYA NINGSIH" },
             { file: "foto/0121570672.jpg", label: "NI KOMANG NOVI SINTIAWATI" },
             { file: "foto/0139238918.jpg", label: "NI KOMANG SINTYA WULANDARI" },
@@ -194,36 +232,41 @@
             { file: "foto/0134620051.jpg", label: "NI WAYAN DINA DITIYANTI" }
         ];
 
-        let indeksFotoSekarang = 0;
+        let indeksSiswaSekarang = 0;
         let intervalSlideshow;
 
-        // Logika Menjalankan Intro & Slideshow Berputar Otomatis
+        // Logika Menjalankan Intro & Putaran Galeri Siswa
         window.addEventListener('DOMContentLoaded', () => {
+            // Tampilkan foto siswa pertama saat dimuat
+            const frameFoto = document.getElementById('slideshowFrame');
+            const labelFoto = document.getElementById('slideshowLabel');
+            if (frameFoto && labelFoto) {
+                frameFoto.src = daftarSiswaIntro[0].file;
+                labelFoto.innerText = daftarSiswaIntro[0].label;
+            }
+
             // 1. Jalankan progress bar waktu (12 Detik)
             setTimeout(() => {
                 document.getElementById('progressBar').style.width = '100%';
             }, 100);
 
-            // 2. Jalankan putaran 32 foto otomatis bergantian setiap 370 milidetik
+            // 2. Jalankan putaran 31 foto profil siswa otomatis bergantian (Setiap ~350ms)
             intervalSlideshow = setInterval(() => {
-                indeksFotoSekarang = (indeksFotoSekarang + 1) % daftarFotoIntro.length;
-                const frameFoto = document.getElementById('slideshowFrame');
-                const labelFoto = document.getElementById('slideshowLabel');
-                
+                indeksSiswaSekarang = (indeksSiswaSekarang + 1) % daftarSiswaIntro.length;
                 if (frameFoto && labelFoto) {
-                    frameFoto.src = daftarFotoIntro[indeksFotoSekarang].file;
-                    labelFoto.innerText = daftarFotoIntro[indeksFotoSekarang].label;
+                    frameFoto.src = daftarSiswaIntro[indeksSiswaSekarang].file;
+                    labelFoto.innerText = daftarSiswaIntro[indeksSiswaSekarang].label;
                 }
-            }, 370); 
+            }, 350); 
 
-            // 3. Menutup otomatis Intro setelah tepat 12 detik (12000 milidetik)
+            // 3. Menutup otomatis Intro setelah tepat 12 detik
             setTimeout(() => {
                 tutupIntro();
             }, 12000);
         });
 
         function tutupIntro() {
-            clearInterval(intervalSlideshow); // Hentikan perputaran slideshow foto
+            clearInterval(intervalSlideshow); // Hentikan perputaran slideshow foto siswa
             const intro = document.getElementById('introScreen');
             const body = document.getElementById('mainBody');
             
@@ -236,7 +279,7 @@
             }
         }
 
-        // Database lengkap siswa Kelas VII G (Data Asli dari berkas Anda)
+        // Database Lengkap Siswa Kelas VII G (Kata 'Rangking' Diganti 'Peringkat')
         const dataSiswa = {
           "0137300021": {
             "nama": "I GEDE ARYA SUPUTRA",
@@ -331,7 +374,7 @@
           "3131087453": {
             "nama": "NI KETUT LUSIANI",
             "catatan_pencapaian": "Cukup Baik (Perlu Peningkatan Kerajinan Presensi)",
-            "pesan_pembinaan": "Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
+            "pesan_pembinaan": "Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat and kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
           },
           "0137128909": {
             "nama": "NI KETUT RISAYANA SAVITRI",
@@ -350,7 +393,7 @@
           },
           "0136055929": {
             "nama": "NI KOMANG AMELIA TRISNAWATI",
-            "catatan_pencapaian": "Baik (Lebih Giat dalam belajar dan tingkatkan keaktifan dan kepercayaan diri)",
+            "catatan_pencapaian": "Baik (Peringkat 11 Kelas, Lebih giat dalam belajar, tingkatkan keaktifan dan kepercayaan diri)",
             "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
           },
           "3121918554": {
@@ -360,8 +403,8 @@
           },
           "3133934407": {
             "nama": "NI KOMANG MULYA NINGSIH",
-            "catatan_pencapaian": "Sangat Baik (Rekomendasi Rangking 8 Besar Kelas)",
-            "pesan_pembinaan": "Selamat atas pencapaian rangkingnya yang baik. Mengingat pentingnya kesinambungan materi di kelas VIII, mari kita perbaiki bersama aspek kehadiran agar prestasi Ananda jauh lebih melesat."
+            "catatan_pencapaian": "Sangat Baik (Rekomendasi Peringkat 8 Besar Kelas)",
+            "pesan_pembinaan": "Selamat atas pencapaian peringkatnya yang baik. Mengingat pentingnya kesinambungan materi di kelas VIII, mari kita perbaiki bersama aspek kehadiran agar prestasi Ananda jauh lebih melesat."
           },
           "0121570672": {
             "nama": "NI KOMANG NOVI SINTIAWATI",
