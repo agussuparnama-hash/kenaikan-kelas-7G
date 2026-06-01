@@ -77,8 +77,8 @@
         <div class="max-w-md mx-auto w-full text-center flex flex-col items-center gap-3">
             <p class="text-xs text-blue-300">Memuat data pengumuman kenaikan kelas...</p>
             <div class="w-full bg-blue-900 h-2 rounded-full overflow-hidden border border-blue-800">
-                <div id="progressBar" class="bg-yellow-400 h-full w-0 transition-all ease-linear" style="transition-duration: 40000ms;"></div>
-            </div>
+    <div id="progressBar" class="bg-yellow-400 h-full w-0 transition-all ease-linear" style="transition-duration: 93000ms;"></div>
+</div>
             <button onclick="tutupIntro()" class="mt-1 text-xs bg-white/10 hover:bg-white/20 px-4 py-1.5 rounded-full border border-white/20 transition active:scale-95 cursor-pointer text-slate-300">
                 Lewati Salam Pembuka &raquo;
             </button>
@@ -220,7 +220,7 @@
             }, 100);
 
             // 2. Jalankan putaran 31 foto berganti otomatis satu per satu.
-            // Durasi 20 detik / 31 siswa = kurang lebih berganti setiap 630 milidetik
+            // Durasi 60 detik / 31 siswa = kurang lebih berganti setiap 1260 milidetik
             intervalSlideshow = setInterval(() => {
                 indeksSiswaSekarang = (indeksSiswaSekarang + 1) % daftarSiswaIntro.length;
                 gantiSiswaAktif();
