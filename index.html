@@ -334,7 +334,7 @@
         }
     };
 
-    let currentNisn = ""; 
+   let currentNisn = ""; 
 
     function prosesCari() {
         const input = document.getElementById('nisnInput').value.trim();
@@ -349,17 +349,14 @@
         if (dataSiswa[input]) {
             currentNisn = input; 
 
-            // Set Data Profil Atas khusus Siswa
             document.getElementById('studentProfileImage').src = "foto/" + input + ".jpg";
             document.getElementById('studentProfileName').innerText = dataSiswa[input].nama;
 
-            // Set Data Rapor Detail
             document.getElementById('txtNama').innerText = dataSiswa[input].nama;
             document.getElementById('txtNisn').innerText = input;
             document.getElementById('txtPencapaian').innerText = dataSiswa[input].capai;
             document.getElementById('txtPembinaan').innerText = dataSiswa[input].bina;
 
-            // Tukar Tampilan
             kontenGuru.style.display = 'none';
             headerSiswa.style.display = 'block';
             kontenSiswa.style.display = 'block';
@@ -373,6 +370,9 @@
         }
     }
 
+    // ==========================================
+    // BAGIAN UTAMA YANG DIPERBARUI DENGAN TTD
+    // ==========================================
     function unduhGambarBukti() {
         if (!currentNisn || !dataSiswa[currentNisn]) return;
 
@@ -464,25 +464,51 @@
         }
         currentY = wrapText(ctx, detail.bina, 60, currentY, 680, 24);
 
+        // Bagian Tanda Tangan Resmi
         currentY += 70;
         ctx.strokeStyle = "#e5e7eb";
         ctx.beginPath(); ctx.moveTo(60, currentY); ctx.lineTo(740, currentY); ctx.stroke();
         
         currentY += 35;
         ctx.font = "13px Arial"; ctx.fillStyle = "#9ca3af";
+        ctx.textAlign = "left";
         ctx.fillText("Dokumen digital ini sah dikeluarkan oleh sistem database rapor sekolah.", 60, currentY);
         
         ctx.textAlign = "right";
         ctx.font = "bold 14px Arial"; ctx.fillStyle = "#1f2937";
         ctx.fillText("Wali Kelas VII G", 740, currentY);
-        currentY += 45;
-        ctx.font = "italic bold 15px Arial"; ctx.fillStyle = "#1e3a8a";
-        ctx.fillText("I Nengah Sumanadi, S.Pd.", 740, currentY);
 
+        // Memuat file tanda tangan dari folder foto
+        const ttdImg = new Image();
+        ttdImg.src = "foto/ttd_wali_kelas.png"; 
+
+        ttdImg.onload = function() {
+            // Menggambar TTD di kertas virtual (X: 600, Y: setelah jabatan, Lebar: 120px, Tinggi: 60px)
+            ctx.drawImage(ttdImg, 600, currentY + 10, 120, 60); 
+
+            currentY += 90;
+            ctx.textAlign = "right";
+            ctx.font = "italic bold 15px Arial"; ctx.fillStyle = "#1e3a8a";
+            ctx.fillText("I Nengah Sumanadi, S.Pd.", 740, currentY);
+
+            triggerDownload(canvas);
+        };
+
+        // Jika file gambar TTD tidak ditemukan, tetap unduh tanpa merusak sistem
+        ttdImg.onerror = function() {
+            currentY += 90;
+            ctx.textAlign = "right";
+            ctx.font = "italic bold 15px Arial"; ctx.fillStyle = "#1e3a8a";
+            ctx.fillText("I Nengah Sumanadi, S.Pd.", 740, currentY);
+            triggerDownload(canvas);
+        };
+    }
+
+    function triggerDownload(canvas) {
         const imageURI = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = imageURI;
-        link.download = `Bukti_KNAIKAN_${currentNisn}.png`;
+        link.download = `Bukti_Kenaikan_${currentNisn}.png`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -492,6 +518,3 @@
         if (e.key === 'Enter') { prosesCari(); }
     });
 </script>
-
-</body>
-</html>
