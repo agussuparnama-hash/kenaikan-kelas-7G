@@ -24,9 +24,9 @@
 
     <header class="bg-blue-900 text-white shadow-md">
         <div class="max-w-4xl mx-auto px-4 py-6 text-center">
-            <h1 class="text-xl md:text-2xl font-bold tracking-wide uppercase">SMP Negeri 4 Amlapura</h1>
-            <p class="text-sm md:text-base text-blue-200 mt-1">Pengumuman Kenaikan Kelas Tahun Pelajaran 2025/2026</p>
-            <div class="inline-block bg-blue-800 text-xs font-semibold px-3 py-1 rounded-full mt-3 text-blue-100">
+            <h1 class="text-2xl md:text-3xl font-bold tracking-wide uppercase">SMP Negeri 4 Amlapura</h1>
+            <p class="text-base md:text-lg text-blue-200 mt-1">Pengumuman Kenaikan Kelas Tahun Pelajaran 2025/2026</p>
+            <div class="inline-block bg-blue-800 text-sm font-semibold px-4 py-1.5 rounded-full mt-3 text-blue-100">
                 KELAS VII G
             </div>
         </div>
@@ -36,15 +36,15 @@
         <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-100 print-card">
             
             <div class="no-print mb-6">
-                <h2 class="text-lg font-semibold text-slate-800 text-center mb-4">Cek Status Kenaikan Kelas</h2>
+                <h2 class="text-xl font-bold text-slate-800 text-center mb-4">Cek Status Kenaikan Kelas</h2>
                 <div class="space-y-4">
                     <div>
-                        <label for="nisnInput" class="block text-sm font-medium text-slate-600 mb-2">Masukkan NISN Siswa :</label>
+                        <label for="nisnInput" class="block text-base font-medium text-slate-600 mb-2">Masukkan NISN Siswa :</label>
                         <div class="flex gap-2">
                             <input type="text" id="nisnInput" placeholder="Contoh: 0137300021" 
-                                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-base">
+                                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-lg">
                             <button onclick="cekKenaikan()" 
-                                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-xl transition shadow-md active:scale-95">
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-xl transition shadow-md active:scale-95 text-lg">
                                 Cari
                             </button>
                         </div>
@@ -54,7 +54,7 @@
 
             <div id="resultArea" class="hidden mt-4 pt-4 border-t border-dashed border-slate-200">
                 
-                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-center mb-6 flex flex-col items-center">
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center mb-6 flex flex-col items-center">
                     <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full no-print">Status Kelulusan</span>
                     
                     <div class="mt-4 w-32 h-40 bg-slate-200 rounded-xl overflow-hidden shadow-inner border-2 border-white flex items-center justify-center">
@@ -67,29 +67,29 @@
                         </div>
                     </div>
 
-                    <h3 id="resNama" class="text-xl font-bold text-slate-800 mt-4 uppercase"></h3>
-                    <p class="text-sm text-slate-500 mt-1">NISN: <span id="resNisn" class="font-mono font-medium"></span></p>
+                    <h3 id="resNama" class="text-2xl md:text-3xl font-black text-slate-900 mt-5 uppercase tracking-wide"></h3>
+                    <p class="text-base text-slate-600 mt-1">NISN: <span id="resNisn" class="font-mono font-semibold"></span></p>
                     
-                    <div class="mt-4 w-full text-base font-semibold text-emerald-800 bg-emerald-100/50 py-2 rounded-xl border border-emerald-200/50">
-                        Dinyatakan: <span class="text-lg font-bold">NAIK KE KELAS VIII</span>
+                    <div class="mt-5 w-full text-lg font-bold text-emerald-900 bg-emerald-100 py-3 rounded-xl border border-emerald-300">
+                        Dinyatakan: <span class="text-xl md:text-2xl font-black block mt-1">NAIK KE KELAS VIII</span>
                     </div>
                 </div>
 
-                <div class="space-y-4 mb-6">
-                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Catatan Prestasi / Pencapaian:</h4>
-                        <p id="resPencapaian" class="text-sm font-semibold text-blue-900"></p>
+                <div class="space-y-5 mb-6">
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Catatan Prestasi / Pencapaian:</h4>
+                        <p id="resPencapaian" class="text-lg font-bold text-blue-900"></p>
                     </div>
                     
-                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Pesan Pembinaan Wali Kelas:</h4>
-                        <p id="resPembinaan" class="text-sm text-slate-700 leading-relaxed italic"></p>
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                        <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Pesan Pembinaan Wali Kelas:</h4>
+                        <p id="resPembinaan" class="text-base md:text-lg text-slate-800 leading-relaxed font-medium italic"></p>
                     </div>
                 </div>
 
                 <div class="no-print text-center pt-2">
-                    <button onclick="window.print()" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white font-medium px-5 py-2.5 rounded-xl transition shadow text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <button onclick="window.print()" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white font-bold px-6 py-3 rounded-xl transition shadow-md text-base">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                         </svg>
                         Cetak Bukti Pengumuman
@@ -98,7 +98,7 @@
 
             </div>
 
-            <div id="errorArea" class="hidden mt-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-center text-sm">
+            <div id="errorArea" class="hidden mt-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-center text-base font-medium">
                 Maaf, data NISN tidak ditemukan. Mohon periksa kembali nomor yang Anda masukkan.
             </div>
 
@@ -110,12 +110,11 @@
     </footer>
 
     <script>
-        // Database lengkap siswa Kelas VII G dengan format NISN teks asli (10 digit)
         const dataSiswa = {
           "0137300021": {
             "nama": "I GEDE ARYA SUPUTRA",
             "catatan_pencapaian": "Sangat Baik (Rekomendasi Rangking 5 Besar Kelas)",
-            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahankan semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
+            "pesan_pembinaan": "Ananda telah menunjukkan kemajuan yang baik dalam belajar serta sikap yang semakin positif selama semester ini. Terus pertahaman semangat, disiplin, dan tanggung jawab dalam belajar. Semoga di kelas berikutnya dapat semakin percaya diri, aktif, dan meraih hasil yang lebih baik lagi."
           },
           "0139556904": {
             "nama": "I GEDE SUDARSANA",
@@ -140,7 +139,7 @@
           "3122015437": {
             "nama": "I KETUT DIAN MAHENDRA",
             "catatan_pencapaian": "Cukup Baik (Perlu Peningkatan Presensi)",
-            "pesan_pembinaan": "Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat and kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
+            "pesan_pembinaan": "Ananda diharapkan dapat lebih memperhatikan kehadiran di sekolah serta menjaga kesehatan dengan baik. Dengan kondisi fisik yang sehat dan kehadiran yang teratur, kesempatan untuk berkembang dan meraih prestasi akan semakin terbuka."
           },
           "3133992745": {
             "nama": "I KETUT PUTRA DARMA YASA",
@@ -184,7 +183,7 @@
           },
           "0134066990": {
             "nama": "I WAYAN WIDIARTA YASA",
-            "catatan_pencapaian": "Baik (Perlu Konsistensi Kehadiran)",
+            "catatan_pencapaian": "Baik (Perlu Keselarasan Kehadiran)",
             "pesan_pembinaan": "Ananda telah menunjukkan perkembangan yang positif dalam belajar. Diharapkan semakin rajin, disiplin, dan bersungguh-sungguh dalam belajar untuk meraih prestasi yang lebih baik."
           },
           "0134268627": {
@@ -276,7 +275,6 @@
             const imgElement = document.getElementById("resFoto");
             const placeholder = document.getElementById("photoPlaceholder");
 
-            // Reset view
             resultArea.classList.add("hidden");
             errorArea.classList.add("hidden");
 
@@ -287,7 +285,6 @@
                 document.getElementById("resPencapaian").innerText = siswa.catatan_pencapaian;
                 document.getElementById("resPembinaan").innerText = siswa.pesan_pembinaan;
                 
-                // Memanggil file .jpg menggunakan nama NISN ber-angka nol di depan
                 imgElement.src = "foto/" + input + ".jpg";
                 imgElement.classList.remove("hidden");
                 placeholder.classList.add("hidden");
@@ -298,13 +295,11 @@
             }
         }
 
-        // Fungsi cadangan jika file foto .jpg belum diunggah ke folder
         function imgError(image) {
             image.classList.add("hidden");
             document.getElementById("photoPlaceholder").classList.remove("hidden");
         }
 
-        // Menjalankan pencarian saat menekan tombol enter pada keyboard
         document.getElementById("nisnInput").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 cekKenaikan();
