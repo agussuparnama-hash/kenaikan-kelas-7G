@@ -38,10 +38,28 @@
         
         /* Kotak Pencarian NISN */
         .search-box { padding: 20px; background: #f8fafc; text-align: center; border: 1px solid #e2e8f0; border-radius: 10px; margin-top: 20px; transition: all 0.3s ease-in-out; }
-        .input-group { display: flex; gap: 10px; max-width: 450px; margin: 15px auto 0; }
+        .input-group { 
+    display: flex; 
+    flex-direction: column; /* Mengatur susunan menjadi vertikal (ke bawah) */
+    gap: 12px;              /* Jarak antara kotak input dan tombol */
+    max-width: 450px; 
+    margin: 15px auto 0; 
+}
         .input-nisn { flex: 1; padding: 12px 15px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 16px; outline: none; transition: all 0.3s; }
         .input-nisn:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
-        .btn-cari { background: var(--primary); color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+        .btn-cari { 
+    background: var(--primary); 
+    color: white; 
+    border: none; 
+    padding: 12px 25px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: background 0.3s;
+    width: 100%;            /* Membuat tombol selebar kotak input */
+    box-sizing: border-box;
+}
         .btn-cari:hover { background: #172554; }
         .error-msg { display: none; color: #dc2626; margin-top: 15px; font-weight: bold; font-size: 15px; background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fca5a5; max-width: 450px; margin-left: auto; margin-right: auto; }
 
