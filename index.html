@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman Kenaikan Kelas VII G - SMP Negeri 4 Amlapura</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #2f855a;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --text-muted: #4a5568;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Header Style */
+        .header-banner {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 5px solid #ecc94b;
+        }
+
+        .header-banner h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .header-banner h2 {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        /* Teacher Section */
+        .teacher-section {
+            padding: 35px;
+            text-align: center;
+            background-color: #ffffff;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .teacher-img-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            border: 4px solid var(--secondary-color);
+            overflow: hidden;
+            background-color: #edf2f7;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .teacher-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .teacher-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .teacher-role {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .welcome-msg {
+            font-size: 15px;
+            color: var(--text-main);
+            max-width: 650px;
+            margin: 0 auto;
+            text-align: justify;
+            text-justify: inter-word;
+            background: #f8fafc;
+            padding: 20px;
+            border-left: 4px solid var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        /* Checker Section */
+        .checker-section {
+            padding: 35px;
+            background-color: #f8fafc;
+            text-align: center;
+        }
+
+        .checker-section h3 {
+            font-size: 16px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .search-container {
+            display: flex;
+            max-width: 450px;
+            margin: 0 auto 25px;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary-color);
+        }
+
+        .search-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Result Section */
+        .result-card {
+            display: none;
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            text-align: left;
+            overflow: hidden;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-badge {
+            background-color: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .result-body {
+            padding: 25px;
+        }
+
+        .result-row {
+            margin-bottom: 18px;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 12px;
+        }
+
+        .result-row:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .value {
+            font-size: 15px;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .value.highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .error-msg {
+            display: none;
+            color: #e53e3e;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 600px) {
+            .search-container {
+                flex-direction: column;
+            }
+            .search-btn {
+                width: 100%;
+            }
+            .header-banner h1 {
+                font-size: 20px;
+            }
+            .header-banner h2 {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header Sekolah -->
+    <div class="header-banner">
+        <h1>SMP Negeri 4 Amlapura</h1>
+        <h2>Pengumuman Kenaikan Kelas Tahun Ajaran 2025/2026</h2>
+    </div>
+
+    <!-- Sambutan Wali Kelas -->
+    <div class="teacher-section">
+        <div class="teacher-img-container">
+            <!-- Menunjuk ke folder foto sesuai request -->
+            <img src="foto/wali_kelas.jpg" alt="Foto I Nengah Sumanadi, S.Pd.">
+        </div>
+        <div class="teacher-name">I Nengah Sumanadi, S.Pd.</div>
+        <div class="teacher-role">Wali Kelas VII G</div>
+        <div class="welcome-msg">
+            <strong>Om Swastyastu,</strong><br><br>
+            Selamat datang kepada seluruh orang tua/wali murid beserta siswa-siswi kelas VII G SMP Negeri 4 Amlapura. 
+            Apresiasi yang setinggi-tingginya saya sampaikan atas kerja keras, dedikasi, dan semangat belajar yang telah ditunjukkan 
+            selama satu tahun ajaran ini. Lembaran halaman ini disediakan guna memudahkan Bapak/Ibu serta siswa sekalian untuk 
+            mengakses hasil capaian evaluasi akhir serta arahan pembinaan akademik demi kesuksesan di jenjang berikutnya. 
+            Silakan masukkan NISN (Nomor Induk Siswa Nasional) siswa pada kolom di bawah ini untuk melihat detail kelulusan.
+        </div>
+    </div>
+
+    <!-- Sistem Pengecekan NISN -->
+    <div class="checker-section">
+        <h3>Pengecekan Status Kenaikan Kelas VII G</h3>
+        <div class="search-container">
+            <input type="text" id="nisnInput" class="search-input" placeholder="Masukkan 10 Digit NISN Siswa..." autocomplete="off">
+            <button onclick="checkStatus()" class="search-btn">Periksa Hasil</button>
+        </div>
+        
+        <div id="errorDisplay" class="error-msg">NISN tidak ditemukan. Pastikan nomor yang dimasukkan benar atau hubungi Wali Kelas.</div>
+
+        <!-- Kartu Hasil (Akan Muncul Jika NISN Benar) -->
+        <div id="resultCard" class="result-card">
+            <div class="result-header">
+                <span>Detail Hasil Evaluasi</span>
+                <span class="status-badge">NAIK KELAS VIII</span>
+            </div>
+            <div class="result-body">
+                <div class="result-row">
+                    <div class="label">Nama Lengkap Siswa</div>
+                    <div id="resNama" class="value highlight"></div>
+                </div>
+                <div class="result-row">
+                    <div class="label">NISN</div>
+                    <div id="resNisn" class="value"></div>
+                </div>
+                <div class="result-row">
+                    <div class="label">Pencapaian Penting / Kelebihan</div>
+                    <div id="resPencapaian" class="value" style="color: var(--accent-color); font-weight: 600;"></div>
+                </div>
+                <div class="result-row">
+                    <div class="label">Arahan Pembinaan & Motivasi Wali Kelas</div>
+                    <div id="resPembinaan" class="value" style="text-align: justify; font-style: italic; background: #fdfdfd; padding: 10px; border-radius: 4px; border: 1px solid #edf2f7;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2026 SMP Negeri 4 Amlapura. Dirancang untuk Pengumuman Kelas VII G.
+    </div>
+</div>
+
+<script>
+    // Database 31 Siswa Kelas VII G lengkap dengan NISN, Pencapaian, dan Kata Pembinaan Formal/Sopan
+    const studentDatabase = {
+        "0123456781": {
+            nama: "A.A. Ngurah Agung Pratama",
+            pencapaian: "Juara 2 Lomba Matematika Tingkat Kabupaten",
+            pembinaan: "Mempertahankan prestasi akademik yang luar biasa dan terus aktif dalam kegiatan kepramukaan sekolah."
+        },
+        "0123456782": {
+            nama: "Anak Agung Istri Kirana",
+            pencapaian: "Sangat baik dalam pelajaran Bahasa Inggris",
+            pembinaan: "Tingkatkan rasa percaya diri untuk berbicara di depan umum guna mengoptimalkan potensi bahasa yang dimiliki."
+        },
+        "0123456783": {
+            nama: "Gede Adi Wiguna",
+            pencapaian: "Aktif dalam kepengurusan kelas",
+            pembinaan: "Kedisiplinan yang baik dalam mengumpulkan tugas agar terus dipertahankan pada jenjang kelas VIII."
+        },
+        "0123456784": {
+            nama: "I Dewa Gede Raditya",
+            pencapaian: "Menunjukkan bakat luar biasa di bidang seni musik",
+            pembinaan: "Terus asah bakat bermusik Anda di samping menjaga konsistensi nilai mata pelajaran akademik."
+        },
+        "0123456785": {
+            nama: "I Gede Ananda Putra",
+            pencapaian: "Peningkatan signifikan pada nilai Matematika",
+            pembinaan: "Ketekunan belajar yang telah ditunjukkan semester ini hendaknya terus dipertahankan dan ditingkatkan."
+        },
+        "0123456786": {
+            nama: "I Kadek Bayu Samudra",
+            pencapaian: "Sopan santun dan budi pekerti sangat terpuji",
+            pembinaan: "Sikap terpuji Anda menjadi teladan bagi teman-teman. Pertahankan integritas dan semangat belajarmu."
+        },
+        "0123456787": {
+            nama: "I Komang Danendra",
+            pencapaian: "Juara 3 Turnamen Bulutangkis Antar-Pelajar",
+            pembinaan: "Selamat atas prestasi olahraganya. Tetap kelola waktu dengan bijak antara latihan fisik dan belajar mandiri."
+        },
+        "0123456788": {
+            nama: "I Made Elvan Dananjaya",
+            pencapaian: "Sangat kreatif dalam tugas proyek prakarya",
+            pembinaan: "Kreativitas yang tinggi adalah modal berharga. Teruslah berinovasi dengan tetap menjaga fokus belajar."
+        },
+        "0123456789": {
+            nama: "I Nyoman Fajar Lesmana",
+            pencapaian: "Konsisten dalam kehadiran dan ketepatan waktu",
+            pembinaan: "Kedisiplinan waktu yang sangat baik. Semoga dapat menjadi motivasi untuk meningkatkan capaian akademik."
+        },
+        "0123456790": {
+            nama: "I Putu Gede Galang",
+            pencapaian: "Sangat baik dalam pemahaman konsep IPS",
+            pembinaan: "Pertahankan daya kritis Anda dalam memahami materi dan cobalah untuk lebih aktif berdiskusi di kelas."
+        },
+        "0123456791": {
+            nama: "Kadek Ayu Lestari",
+            pencapaian: "Juara 1 Lomba Puisi Bulan Bahasa Sekolah",
+            pembinaan: "Kemampuan literasi yang mengagumkan. Terus tingkatkan minat baca untuk memperluas cakrawala pengetahuan."
+        },
+        "0123456792": {
+            nama: "Ketut Bintang Ramadhan",
+            pencapaian: "Peningkatan nilai yang stabil di semua mapel",
+            pembinaan: "Kemajuan belajar yang konsisten. Tetap pertahankan ritme belajar ini di kelas VIII nanti."
+        },
+        "0123456793": {
+            nama: "Komang Chandrika Dewi",
+            pencapaian: "Kemampuan analisis yang baik pada pelajaran IPA",
+            pembinaan: "Pertahankan semangat eksplorasi ilmiah Anda dan rajinlah berlatih soal-soal penalaran tingkat tinggi."
+        },
+        "0123456794": {
+            nama: "Luh Putu Diandra Sari",
+            pencapaian: "Aktif dan komunikatif dalam kerja kelompok",
+            pembinaan: "Jiwa kepemimpinan dalam kelompok yang sangat baik. Terus asah kemampuan kolaborasi dan kepedulian sosial."
+        },
+        "0123456795": {
+            nama: "Made Eka Wijaya",
+            pencapaian: "Sangat baik dalam praktik komputer (Informatika)",
+            pembinaan: "Keterampilan teknologi yang baik. Gunakan perangkat digital secara bijak untuk mendukung pembelajaran."
+        },
+        "0123456796": {
+            nama: "Ni Kadek Fitriani",
+            pencapaian: "Nilai rapor tertinggi untuk mata pelajaran Seni Budaya",
+            pembinaan: "Bakat seni yang sangat indah. Teruslah berkarya dengan tetap memprioritaskan tugas akademik utama."
+        },
+        "0123456797": {
+            nama: "Ni Komang Gita Cahyani",
+            pencapaian: "Kerapian buku catatan dan tugas sangat baik",
+            pembinaan: "Manajemen tugas yang sangat rapi dan terstruktur. Kebiasaan baik ini akan sangat membantu di kelas VIII."
+        },
+        "0123456798": {
+            nama: "Ni Luh Made Hari Utami",
+            pencapaian: "Sangat tekun dalam pelajaran Bahasa Daerah",
+            pembinaan: "Kelestarian budaya melalui bahasa daerah yang Anda tunjukkan sangat mulia. Terus tingkatkan prestasi Anda."
+        },
+        "0123456799": {
+            nama: "Ni Nyoman Indah Permata",
+            pencapaian: "Sikap kepedulian sosial yang tinggi antar teman",
+            pembinaan: "Kematangan emosional dan empati yang luar biasa. Pertahankan kebaikan hati ini di mana pun berada."
+        },
+        "0123456800": {
+            nama: "Ni Putu Intan Sari",
+            pencapaian: "Sangat baik dalam tugas-tugas tertulis",
+            pembinaan: "Kemampuan akademis tertulis sangat memuaskan. Cobalah untuk lebih berani menyampaikan pendapat secara lisan."
+        },
+        "0123456801": {
+            nama: "Putu Aditya Pratama",
+            pencapaian: "Rapi dan teliti dalam pengerjaan tugas matematika",
+            pembinaan: "Ketelitian Anda adalah aset besar. Pertahankan fokus ini agar pemahaman materi semakin mendalam."
+        },
+        "0123456802": {
+            nama: "Putu Bagus Dananjaya",
+            pencapaian: "Menunjukkan minat tinggi pada sejarah nasional",
+            pembinaan: "Wawasan kebangsaan yang baik. Terus perkaya literasi sejarah untuk membentuk karakter yang kuat."
+        },
+        "0123456803": {
+            nama: "Putu Citra Dewi",
+            pencapaian: "Sangat baik dalam mempraktikkan nilai keagamaan",
+            pembinaan: "Ketaatan spiritual yang indah. Semoga keluhuran budi pekerti ini senantiasa mengiringi langkah belajarmu."
+        },
+        "0123456804": {
+            nama: "Pande Made Dwi Dharma",
+            pencapaian: "Selalu bersemangat dalam pembelajaran PJOK",
+            pembinaan: "Kebugaran dan semangat olahraga yang tinggi. Imbangi dengan ketekunan belajar pada materi teori kelas."
+        },
+        "0123456805": {
+            nama: "Gusti Ayu Elma Pratiwi",
+            pencapaian: "Sangat mahir dalam penulisan kreatif (karangan)",
+            pembinaan: "Gaya penulisan Anda sangat mengalir dan menarik. Terus asah bakat menulis ini melalui blog atau mading."
+        },
+        "0123456806": {
+            nama: "I Kadek Febriantara",
+            pencapaian: "Sikap kooperatif dan mudah bekerja sama",
+            pembinaan: "Keramahan dan kemampuan adaptasi yang baik. Pertahankan sikap positif ini demi masa depan yang cerah."
+        },
+        "0123456807": {
+            nama: "I Komang Gede Juniartha",
+            pencapaian: "Peningkatan konsentrasi belajar di paruh akhir semester",
+            pembinaan: "Perubahan positif yang nyata dalam kesungguhan belajar. Pertahankan momentum ini untuk hasil yang lebih optimal."
+        },
+        "0123456808": {
+            nama: "Ni Kadek Hesti Lestari",
+            pencapaian: "Aktif merespons pertanyaan guru di kelas",
+            pembinaan: "Partisipasi aktif Anda di kelas sangat menghidupkan suasana belajar. Terus pertahankan keberanian positif ini."
+        },
+        "0123456809": {
+            nama: "Ni Putu Indah Lestari",
+            pencapaian: "Menunjukkan kemandirian belajar yang tinggi",
+            pembinaan: "Kemandirian yang luar biasa dalam menuntaskan tugas. Tetap pertahankan motivasi internal yang kuat ini."
+        },
+        "0123456810": {
+            nama: "Putu Kevin Sanjaya",
+            pencapaian: "Keterampilan pemecahan masalah yang baik",
+            pembinaan: "Logika berpikir Anda berkembang dengan sangat baik. Terus tantang diri dengan materi yang lebih kompleks."
+        },
+        "0123456811": {
+            nama: "Ni Luh Putu Mega Utami",
+            pencapaian: "Nilai rata-rata rapor masuk dalam 5 besar kelas",
+            pembinaan: "Selamat atas pencapaian prestasi yang gemilang. Tetap membumi, tekun, dan jadilah inspirasi bagi sesama."
+        },
+    };
+
+    function checkStatus() {
+        const input = document.getElementById('nisnInput').value.trim();
+        const card = document.getElementById('resultCard');
+        const error = document.getElementById('errorDisplay');
+        
+        // Reset view
+        card.style.display = 'none';
+        error.style.display = 'none';
+
+        if (studentDatabase[input]) {
+            // Populate data
+            document.getElementById('resNama').innerText = studentDatabase[input].nama;
+            document.getElementById('resNisn').innerText = input;
+            document.getElementById('resPencapaian').innerText = studentDatabase[input].pencapaian;
+            document.getElementById('resPembinaan').innerText = studentDatabase[input].pembinaan;
+            
+            // Show card
+            card.style.display = 'block';
+        } else {
+            // Show error
+            error.style.display = 'block';
+        }
+    }
+
+    // Allow press Enter to search
+    document.getElementById('nisnInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            checkStatus();
+        }
+    });
+</script>
+
+</body>
+</html>
