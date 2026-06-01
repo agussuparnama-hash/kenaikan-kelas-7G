@@ -21,15 +21,6 @@
         .header h1 { margin: 0; font-size: 24px; letter-spacing: 0.5px; }
         .header h2 { margin: 5px 0 0 0; font-size: 16px; font-weight: normal; opacity: 0.9; }
         
-        /* Kotak Pencarian (Bilah Masukan NISN) */
-        .search-box { padding: 25px; background: #f8fafc; text-align: center; border-bottom: 1px solid #e5e7eb; transition: all 0.3s ease-in-out; }
-        .input-group { display: flex; gap: 10px; max-width: 420px; margin: 15px auto 0; }
-        .input-nisn { flex: 1; padding: 12px 15px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 16px; outline: none; transition: all 0.3s; }
-        .input-nisn:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
-        .btn-cari { background: var(--primary); color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
-        .btn-cari:hover { background: #172554; }
-        .error-msg { display: none; color: #dc2626; margin-top: 15px; font-weight: bold; font-size: 14px; background: #fef2f2; padding: 10px; border-radius: 6px; border: 1px solid #fca5a5; max-width: 420px; margin-left: auto; margin-right: auto; }
-
         /* Bilah Konten Utama */
         .profile-container { padding: 30px 25px; text-align: center; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -38,27 +29,36 @@
         .photo-box { margin-bottom: 15px; position: relative; display: inline-block; }
         .profile-img { width: 135px; height: 180px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); object-fit: cover; }
         
-        .profile-title { font-size: 20px; font-weight: bold; color: var(--primary); margin-top: 10px; }
-        .profile-subtitle { font-size: 14px; color: #6b7280; font-style: italic; margin-top: 2px; margin-bottom: 20px; }
+        .profile-title { font-size: 22px; font-weight: bold; color: var(--primary); margin-top: 10px; }
+        .profile-subtitle { font-size: 16px; color: #6b7280; font-style: italic; margin-top: 2px; margin-bottom: 25px; }
         
         /* Tampilan Khusus Wali Kelas */
-        .poem-box { padding: 15px; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; font-style: italic; color: #4b5563; line-height: 1.6; font-size: 14px; margin-bottom: 20px; }
-        .welcome-text { text-align: justify; font-size: 14px; background: #f1f5f9; padding: 15px; border-left: 4px solid var(--secondary); border-radius: 4px; line-height: 1.6; }
+        .poem-box { padding: 20px; border-top: 2px solid #e5e7eb; border-bottom: 2px solid #e5e7eb; font-style: italic; color: #374151; line-height: 1.7; font-size: 16px; margin-bottom: 25px; background: #fafafa; }
+        .welcome-text { text-align: justify; font-size: 16px; background: #f1f5f9; padding: 20px; border-left: 5px solid var(--secondary); border-radius: 4px; line-height: 1.7; margin-bottom: 30px; }
         
+        /* Kotak Pencarian diletakkan di paling bawah salam pembuka */
+        .search-box { padding: 20px; background: #f8fafc; text-align: center; border: 1px solid #e2e8f0; border-radius: 10px; margin-top: 20px; transition: all 0.3s ease-in-out; }
+        .input-group { display: flex; gap: 10px; max-width: 450px; margin: 15px auto 0; }
+        .input-nisn { flex: 1; padding: 12px 15px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 16px; outline: none; transition: all 0.3s; }
+        .input-nisn:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+        .btn-cari { background: var(--primary); color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+        .btn-cari:hover { background: #172554; }
+        .error-msg { display: none; color: #dc2626; margin-top: 15px; font-weight: bold; font-size: 15px; background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fca5a5; max-width: 450px; margin-left: auto; margin-right: auto; }
+
         /* Tampilan Khusus Profil Siswa */
         .student-profile-box { display: none; text-align: left; background: #ffffff; border: 2px solid var(--success); border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); overflow: hidden; animation: slideUp 0.4s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        .result-header { background: var(--success); color: white; padding: 14px 20px; font-weight: bold; display: flex; justify-content: space-between; font-size: 14px; letter-spacing: 0.5px; }
+        .result-header { background: var(--success); color: white; padding: 16px 20px; font-weight: bold; display: flex; justify-content: space-between; font-size: 15px; letter-spacing: 0.5px; }
         .result-body { padding: 25px; }
-        .info-row { margin-bottom: 20px; border-bottom: 1px solid #f3f4f6; padding-bottom: 12px; }
+        .info-row { margin-bottom: 25px; border-bottom: 1px solid #f3f4f6; padding-bottom: 16px; }
         .info-row:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
-        .label { font-size: 11px; text-transform: uppercase; color: #6b7280; font-weight: bold; letter-spacing: 0.5px; }
-        .value { font-size: 16px; font-weight: 500; margin-top: 4px; color: #111827; }
+        .label { font-size: 12px; text-transform: uppercase; color: #6b7280; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+        .value { font-size: 18px; font-weight: 500; margin-top: 4px; color: #111827; }
         
-        /* Tombol Kembali / Cek NISN Lain */
-        .btn-kembali { display: block; width: 100%; max-width: 200px; margin: 20px auto 0; background: #4b5563; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; text-align: center; transition: background 0.3s; }
-        .btn-kembali:hover { background: #374151; }
+        /* Tombol Unduh Bukti Kenaikan */
+        .btn-unduh { display: block; width: 100%; max-width: 280px; margin: 25px auto 0; background: #2563eb; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; text-align: center; transition: background 0.3s; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2); }
+        .btn-unduh:hover { background: #1d4ed8; }
 
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #6b7280; background: white; border-top: 1px solid #e5e7eb; }
     </style>
@@ -73,20 +73,10 @@
         <h2>Pengumuman Kenaikan Kelas VII G</h2>
     </div>
 
-    <!-- Kotak Pencarian NISN (Bilah Masukan NISN) -->
-    <div id="searchBoxBlock" class="search-box">
-        <h3 style="margin:0; font-size: 16px; color: var(--primary);">Masukkan NISN Siswa (10 Digit):</h3>
-        <div class="input-group">
-            <input type="text" id="nisnInput" class="input-nisn" placeholder="Contoh: 0137300021" autocomplete="off">
-            <button onclick="prosesCari()" class="btn-cari">Periksa</button>
-        </div>
-        <div id="error" class="error-msg">Nomor NISN tidak ditemukan. Mohon periksa kembali 10 digit NISN siswa dengan benar.</div>
-    </div>
-
-    <!-- BILAH UTAMA: Menampilkan Informasi secara Bergantian -->
+    <!-- BILAH UTAMA -->
     <div class="profile-container">
         
-        <!-- Bagian Foto Dinamis (Bentuk Oval Memanjang Portrait) -->
+        <!-- Bagian Foto Dinamis -->
         <div class="photo-box">
             <img id="profileImage" src="foto/wali_kelas.jpg" class="profile-img" alt="Foto Profil">
         </div>
@@ -105,10 +95,22 @@
                 Setiap peluh tekadmu hari ini adalah bekal esok hari,<br>
                 Teruslah melangkah tegak, gapai mimpi setinggi prestasi."
             </div>
+            
             <div class="welcome-text">
                 <strong>Om Swastyastu,</strong><br><br>
                 Selamat datang kami ucapkan kepada Bapak/Ibu Orang Tua/Wali murid serta seluruh siswa kelas VII G. 
-                Melalui halaman resmi ini, silakan masukkan 10 digit NISN siswa secara lengkap pada kolom pencarian di atas untuk memeriksa hasil evaluasi capaian belajar, catatan perkembangan, serta status kenaikan kelas menuju Kelas VIII.
+                Melalui halaman resmi ini, kami mengundang Bapak/Ibu untuk membaca amanat serta evaluasi perkembangan putra-putri kita selama satu semester terakhir. <br><br>
+                Silakan masukkan 10 digit NISN siswa secara lengkap pada kolom pencarian di bawah ini untuk memeriksa hasil capaian belajar serta status resmi kenaikan kelas menuju Kelas VIII.
+            </div>
+
+            <!-- Kotak Pencarian NISN diletakkan paling bawah setelah salam pembuka -->
+            <div id="searchBoxBlock" class="search-box">
+                <h3 style="margin:0; font-size: 17px; color: var(--primary);">Masukkan NISN Siswa (10 Digit):</h3>
+                <div class="input-group">
+                    <input type="text" id="nisnInput" class="input-nisn" placeholder="Contoh: 0137300021" autocomplete="off">
+                    <button onclick="prosesCari()" class="btn-cari">Periksa</button>
+                </div>
+                <div id="error" class="error-msg">Nomor NISN tidak ditemukan. Mohon periksa kembali 10 digit NISN siswa dengan benar.</div>
             </div>
         </div>
 
@@ -116,28 +118,28 @@
         <div id="studentContent" class="student-profile-box">
             <div class="result-header">
                 <span>HASIL EVALUASI AKHIR SEMESTER</span>
-                <span style="background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: bold;">STATUS: AKTIF</span>
+                <span style="background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">STATUS: AKTIF</span>
             </div>
             <div class="result-body">
                 <div class="info-row">
                     <div class="label">Nama Lengkap Siswa</div>
-                    <div id="txtNama" class="value" style="color: var(--primary); font-weight: bold; font-size: 18px;"></div>
+                    <div id="txtNama" class="value" style="color: var(--primary); font-weight: bold; font-size: 20px;"></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Nomor Induk Siswa Nasional (NISN)</div>
-                    <div id="txtNisn" class="value"></div>
+                    <div id="txtNisn" class="value" style="font-size: 17px;"></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Pencapaian / Evaluasi Akademik</div>
-                    <div id="txtPencapaian" class="value" style="color: #065f46; font-weight: bold; background: #ecfdf5; padding: 6px 12px; border-radius: 6px; display: inline-block;"></div>
+                    <div id="txtPencapaian" class="value" style="color: #065f46; font-weight: bold; background: #ecfdf5; padding: 8px 14px; border-radius: 6px; display: inline-block; font-size: 18px; line-height: 1.5;"></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Catatan Pembinaan &amp; Motivasi Wali Kelas</div>
-                    <div id="txtPembinaan" class="value" style="line-height: 1.6; text-align: justify; color: #374151;"></div>
+                    <div id="txtPembinaan" class="value" style="line-height: 1.7; text-align: justify; color: #1f2937; font-size: 17px; font-weight: normal;"></div>
                 </div>
                 
-                <!-- Tombol opsional untuk memunculkan kembali bilah pencarian jika ingin mengecek NISN lain -->
-                <button onclick="kembalikePencarian()" class="btn-kembali">Periksa NISN Lain</button>
+                <!-- TOMBOL DIGANTI JADI UNDUH BUKTI KENAIKAN KELAS -->
+                <button onclick="unduhBukti()" class="btn-unduh">⬇️ Unduh Bukti Kenaikan Kelas</button>
             </div>
         </div>
 
@@ -308,6 +310,8 @@
         }
     };
 
+    let currentNisn = ""; // Menyimpan NISN aktif untuk keperluan unduhan
+
     function prosesCari() {
         const input = document.getElementById('nisnInput').value.trim();
         const searchBox = document.getElementById('searchBoxBlock');
@@ -323,25 +327,27 @@
         errorBoks.style.display = 'none';
 
         if (dataSiswa[input]) {
+            currentNisn = input; // Set NISN siswa yang sedang dibuka
+
             // 1. Ganti Informasi Profil Menjadi Profil Siswa
             imgProfil.src = "foto/" + input + ".jpg";
             namaProfil.innerText = dataSiswa[input].nama;
             statusProfil.innerText = "Siswa Kelas VII G";
 
-            // 2. Isi Detail Raport Siswa di Tabel Dalam
+            // 2. Isi Detail Rapor Siswa
             document.getElementById('txtNama').innerText = dataSiswa[input].nama;
             document.getElementById('txtNisn').innerText = input;
             document.getElementById('txtPencapaian').innerText = dataSiswa[input].capai;
             document.getElementById('txtPembinaan').innerText = dataSiswa[input].bina;
 
-            // 3. Sistem Tukar Bilah (Sembunyikan Sambutan Guru, Munculkan Nilai Siswa)
+            // 3. Sistem Tukar Bilah
             kontenGuru.style.display = 'none';
             kontenSiswa.style.display = 'block';
 
-            // 4. SEMBUNYIKAN BILAH MASUKAN NISN (Sesuai Permintaan)
+            // 4. Sembunyikan Bilah Pencarian NISN setelah berhasil
             searchBox.style.display = 'none';
         } else {
-            // Jika NISN tidak valid, pertahankan kotak pencarian dan beri info error
+            currentNisn = "";
             errorBoks.style.display = 'block';
             imgProfil.src = "foto/wali_kelas.jpg";
             namaProfil.innerText = "I Nengah Sumanadi, S.Pd.";
@@ -353,17 +359,45 @@
         }
     }
 
-    function kembalikePencarian() {
-        // Fungsi pembantu agar pengguna bisa memunculkan kembali bilah pencarian jika ingin memeriksa siswa lain
-        document.getElementById('searchBoxBlock').style.display = 'block';
-        document.getElementById('teacherContent').style.display = 'block';
-        document.getElementById('studentContent').style.display = 'none';
-        document.getElementById('nisnInput').value = '';
-        
-        // Reset profil ke Wali Kelas
-        document.getElementById('profileImage').src = "foto/wali_kelas.jpg";
-        document.getElementById('profileName').innerText = "I Nengah Sumanadi, S.Pd.";
-        document.getElementById('profileStatus').innerText = "Wali Kelas VII G";
+    // FUNGSI BARU: Mengunduh Bukti Kenaikan Kelas dalam format teks formal (.txt)
+    function unduhBukti() {
+        if (!currentNisn || !dataSiswa[currentNisn]) return;
+
+        const detail = dataSiswa[currentNisn];
+        const textContent = `===========================================================
+               SMP NEGERI 4 AMLAPURA
+        SURAT KETERANGAN EVALUASI CAPAIAN BELAJAR
+               TAHUN PELAJARAN 2025/2026
+===========================================================
+
+Nama Lengkap Siswa : ${detail.nama}
+NISN               : ${currentNisn}
+Kelas              : VII G
+Status Kelulusan   : NAIK KE KELAS VIII
+
+-----------------------------------------------------------
+PENCAPAIAN / EVALUASI AKADEMIK:
+-----------------------------------------------------------
+${detail.capai}
+
+-----------------------------------------------------------
+CATATAN PEMBINAAN & MOTIVASI WALI KELAS:
+-----------------------------------------------------------
+${detail.bina}
+
+-----------------------------------------------------------
+Diterbitkan secara digital oleh Sistem Informasi Akademik
+SMP Negeri 4 Amlapura pada Juni 2026.
+Wali Kelas: I Nengah Sumanadi, S.Pd.
+===========================================================`;
+
+        const blob = new Blob([textContent], { type: "text/plain;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `Bukti_Kenaikan_${currentNisn}_${detail.nama.replace(/ /g, "_")}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     document.getElementById('nisnInput').addEventListener('keypress', function (e) {
