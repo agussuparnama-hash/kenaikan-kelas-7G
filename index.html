@@ -404,151 +404,152 @@
         }
     }
 
-   function unduhGambarBukti() {
-        if (!currentNisn || !dataSiswa[currentNisn]) return;
+  function unduhGambarBukti() {
+    if (!currentNisn || !dataSiswa[currentNisn]) return;
 
-        const detail = dataSiswa[currentNisn];
-        const canvas = document.getElementById("invoiceCanvas");
-        const ctx = canvas.getContext("2d");
+    const detail = dataSiswa[currentNisn];
+    const canvas = document.getElementById("invoiceCanvas");
+    const ctx = canvas.getContext("2d");
 
-        canvas.width = 800;
-        canvas.height = 950;
-
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        const gradient = ctx.createLinearGradient(0, 0, canvas.width, 140);
-        gradient.addColorStop(0, "#1e3a8a");
-        gradient.addColorStop(1, "#3b82f6");
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, 140);
-
-        ctx.fillStyle = "#ffffff";
-        ctx.textAlign = "center";
-        ctx.font = "bold 26px Arial";
-        ctx.fillText("SMP NEGERI 4 AMLAPURA", canvas.width / 2, 55);
-        ctx.font = "18px Arial";
-        ctx.fillText("SURAT KETERANGAN EVALUASI CAPAIAN BELAJAR AKHIR TAHUN", canvas.width / 2, 90);
-        ctx.font = "italic 18px Arial";
-        ctx.fillText("Kelas VII G Tahun Pelajaran 2025/2026", canvas.width / 2, 115);
-
-        ctx.textAlign = "left";
-        ctx.fillStyle = "#1f2937";
-        
-        let currentY = 200;
-        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("NAMA LENGKAP SISWA", 60, currentY);
-        currentY += 28;
-        ctx.font = "bold 22px Arial"; ctx.fillStyle = "#1e3a8a"; ctx.fillText(detail.nama, 60, currentY);
-        
-        currentY += 50;
-        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("NOMOR INDUK SISWA NASIONAL (NISN)", 60, currentY);
-        currentY += 25;
-        ctx.font = "18px Arial"; ctx.fillStyle = "#111827"; ctx.fillText(currentNisn, 60, currentY);
-
-        currentY += 50;
-        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("KELAS / KELOMPOK BELAJAR", 60, currentY);
-        currentY += 25;
-        ctx.font = "18px Arial"; ctx.fillStyle = "#111827"; ctx.fillText("VII G (Tujuh G)", 60, currentY);
-
-        currentY += 50;
-        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("STATUS KENAIKAN KELAS", 60, currentY);
-        currentY += 30;
-        ctx.fillStyle = "#10b981";
-        ctx.fillRect(60, currentY - 22, 230, 32);
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "bold 16px Arial";
-        ctx.fillText("  NAIK KE KELAS VIII", 65, currentY);
-
-        currentY += 60;
-    ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("PENCAPAIAN / EVALUASI AKADEMIK", 60, currentY);
-        currentY += 15;
-        ctx.fillStyle = "#f0fdf4";
-        ctx.fillRect(60, currentY, 680, 55); 
-        ctx.strokeStyle = "#bbf7d0";
-        ctx.strokeRect(60, currentY, 680, 55);
-        ctx.fillStyle = "#065f46";
-        ctx.font = "bold 15px Arial";
-        wrapText(ctx, detail.capai, 80, currentY + 32, 640, 22);
-
-        currentY += 90;
-        ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("CATATAN PEMBINAAN & MOTIVASI WALI KELAS", 60, currentY);
-        currentY += 25;
-        ctx.font = "15px Arial"; ctx.fillStyle = "#374151";
-        
-        function wrapText(context, text, x, y, maxWidth, lineHeight) {
-            const words = text.split(' ');
-            let line = '';
-            for(let n = 0; n < words.length; n++) {
-                let testLine = line + words[n] + ' ';
-                let metrics = context.measureText(testLine);
-                let testWidth = metrics.width;
-                if (testWidth > maxWidth && n > 0) {
-                    context.fillText(line, x, y);
-                    line = words[n] + ' ';
-                    y += lineHeight;
-                } else {
-                    line = testLine;
-                }
+    // Helper function untuk wrap text (dipindah ke atas agar rapi)
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        const words = text.split(' ');
+        let line = '';
+        for(let n = 0; n < words.length; n++) {
+            let testLine = line + words[n] + ' ';
+            let metrics = context.measureText(testLine);
+            let testWidth = metrics.width;
+            if (testWidth > maxWidth && n > 0) {
+                context.fillText(line, x, y);
+                line = words[n] + ' ';
+                y += lineHeight;
+            } else {
+                line = testLine;
             }
-            context.fillText(line, x, y);
-            return y;
         }
-        currentY = wrapText(ctx, detail.bina, 60, currentY, 680, 24);
+        context.fillText(line, x, y);
+        return y;
+    }
 
-        // Kaki Tanda Tangan Gambar Hasil Unduhan
-        currentY += 70;
-        ctx.strokeStyle = "#e5e7eb";
-        ctx.beginPath(); ctx.moveTo(60, currentY); ctx.lineTo(740, currentY); ctx.stroke();
-        
-        currentY += 35;
-        ctx.font = "13px Arial"; ctx.fillStyle = "#9ca3af";
-        ctx.textAlign = "left";
-        ctx.fillText("Dokumen digital ini sah dikeluarkan oleh sistem database rapor sekolah.", 60, currentY);
-        
+    // Ditambah menjadi 1000 agar bagian bawah tidak terpotong saat catatan panjang
+    canvas.width = 800;
+    canvas.height = 1000; 
+
+    // Background Putih
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Header Gradient
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 140);
+    gradient.addColorStop(0, "#1e3a8a");
+    gradient.addColorStop(1, "#3b82f6");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, 140);
+
+    // Teks Header (Center)
+    ctx.fillStyle = "#ffffff";
+    ctx.textAlign = "center";
+    ctx.font = "bold 26px Arial";
+    ctx.fillText("SMP NEGERI 4 AMLAPURA", canvas.width / 2, 55);
+    ctx.font = "18px Arial";
+    ctx.fillText("SURAT KETERANGAN EVALUASI CAPAIAN BELAJAR AKHIR TAHUN", canvas.width / 2, 90);
+    ctx.font = "italic 18px Arial";
+    ctx.fillText("Kelas VII G Tahun Pelajaran 2025/2026", canvas.width / 2, 115);
+
+    // Konten (Left)
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#1f2937";
+    
+    let currentY = 200;
+    ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("NAMA LENGKAP SISWA", 60, currentY);
+    currentY += 28;
+    ctx.font = "bold 22px Arial"; ctx.fillStyle = "#1e3a8a"; ctx.fillText(detail.nama, 60, currentY);
+    
+    currentY += 50;
+    ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("NOMOR INDUK SISWA NASIONAL (NISN)", 60, currentY);
+    currentY += 25;
+    ctx.font = "18px Arial"; ctx.fillStyle = "#111827"; ctx.fillText(currentNisn, 60, currentY);
+
+    currentY += 50;
+    ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("KELAS / KELOMPOK BELAJAR", 60, currentY);
+    currentY += 25;
+    ctx.font = "18px Arial"; ctx.fillStyle = "#111827"; ctx.fillText("VII G (Tujuh G)", 60, currentY);
+
+    // Status Kenaikan Kelas (Dibuat Simetris Tengah di dalam Kotak)
+    currentY += 50;
+    ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("STATUS KENAIKAN KELAS", 60, currentY);
+    currentY += 30;
+    
+    const boxWidth = 230;
+    const boxHeight = 32;
+    ctx.fillStyle = "#10b981";
+    ctx.fillRect(60, currentY - 22, boxWidth, boxHeight); // Menggambar kotak hijau
+    
+    ctx.save(); // Simpan state teks left
+    ctx.textAlign = "center"; // Ubah sementara ke center agar teks simetris di tengah kotak
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 15px Arial";
+    ctx.fillText("NAIK KE KELAS VIII", 60 + (boxWidth / 2), currentY); 
+    ctx.restore(); // Kembalikan ke state teks left
+
+    // Pencapaian Akademik
+    currentY += 60;
+    ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("PENCAPAIAN / EVALUASI AKADEMIK", 60, currentY);
+    currentY += 15;
+    ctx.fillStyle = "#f0fdf4";
+    ctx.fillRect(60, currentY, 680, 55); 
+    ctx.strokeStyle = "#bbf7d0";
+    ctx.strokeRect(60, currentY, 680, 55);
+    ctx.fillStyle = "#065f46";
+    ctx.font = "bold 15px Arial";
+    wrapText(ctx, detail.capai, 80, currentY + 32, 640, 22);
+
+    // Catatan Pembinaan
+    currentY += 90;
+    ctx.font = "bold 15px Arial"; ctx.fillStyle = "#6b7280"; ctx.fillText("CATATAN PEMBINAAN & MOTIVASI WALI KELAS", 60, currentY);
+    currentY += 25;
+    ctx.font = "15px Arial"; ctx.fillStyle = "#374151";
+    currentY = wrapText(ctx, detail.bina, 60, currentY, 680, 24);
+
+    // Garis Batas Bawah / Footer
+    currentY += 60;
+    ctx.strokeStyle = "#e5e7eb";
+    ctx.beginPath(); ctx.moveTo(60, currentY); ctx.lineTo(740, currentY); ctx.stroke();
+    
+    currentY += 35;
+    ctx.font = "13px Arial"; ctx.fillStyle = "#9ca3af";
+    ctx.textAlign = "left";
+    ctx.fillText("Dokumen digital ini sah dikeluarkan oleh sistem database rapor sekolah.", 60, currentY);
+    
+    ctx.textAlign = "right";
+    ctx.font = "bold 14px Arial"; ctx.fillStyle = "#1f2937";
+    ctx.fillText("Wali Kelas VII G", 740, currentY);
+
+    // Fungsi menggambar nama & NIP secara konsisten
+    function cetakNamaDanNip(yPos) {
         ctx.textAlign = "right";
-        ctx.font = "bold 14px Arial"; ctx.fillStyle = "#1f2937";
-        ctx.fillText("Wali Kelas VII G", 740, currentY);
-
-        const ttdImg = new Image();
-        ttdImg.src = "foto/ttd_wali_kelas.png"; 
-
-        ttdImg.onload = function() {
-            ctx.drawImage(ttdImg, 600, currentY + 10, 120, 60); 
-
-            currentY += 90;
-            ctx.textAlign = "right";
-            ctx.font = "italic bold 15px Arial"; ctx.fillStyle = "#1e3a8a";
-            ctx.fillText("I Nengah Sumanadi, S.Pd.", 740, currentY);
-
-            triggerDownload(canvas);
-        };
-
-        ttdImg.onerror = function() {
-            currentY += 90;
-            ctx.textAlign = "right";
-            ctx.font = "italic bold 15px Arial"; ctx.fillStyle = "#1e3a8a";
-            ctx.fillText("I Nengah Sumanadi, S.Pd.", 740, currentY);
-            currentY += 20;
-        ctx.font = "14px Arial"; ctx.fillStyle = "#4b5563"; // Warna abu-abu gelap formal
-        ctx.fillText("NIP. 198210242024211003", 740, currentY);
-            triggerDownload(canvas);
-        };
+        ctx.font = "italic bold 15px Arial"; ctx.fillStyle = "#1e3a8a";
+        ctx.fillText("I Nengah Sumanadi, S.Pd.", 740, yPos);
+        
+        ctx.font = "14px Arial"; ctx.fillStyle = "#4b5563"; // Warna abu-abu formal
+        ctx.fillText("NIP. 198210242024211003", 740, yPos + 22);
     }
 
-    function triggerDownload(canvas) {
-        const imageURI = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.href = imageURI;
-        link.download = `Bukti_Kenaikan_${currentNisn}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
+    const ttdImg = new Image();
+    ttdImg.src = "foto/ttd_wali_kelas.png"; 
 
-    document.getElementById('nisnInput').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') { prosesCari(); }
-    });
-</script>
+    ttdImg.onload = function() {
+        // Tanda tangan digambar di atas Nama & NIP
+        ctx.drawImage(ttdImg, 590, currentY + 10, 120, 60); 
+        currentY += 85; 
+        cetakNamaDanNip(currentY); // Tetap mencetak NIP di sini
+        triggerDownload(canvas);
+    };
 
-</body>
-</html>
+    ttdImg.onerror = function() {
+        // Jika gambar ttd gagal dimuat, langsung cetak Nama & NIP
+        currentY += 85;
+        cetakNamaDanNip(currentY);
+        triggerDownload(canvas);
+    };
+}
