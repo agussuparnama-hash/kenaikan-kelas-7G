@@ -553,3 +553,20 @@
         triggerDownload(canvas);
     };
 }
+  function triggerDownload(canvas) {
+        const imageURI = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = imageURI;
+        link.download = `Bukti_Kenaikan_${currentNisn}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    document.getElementById('nisnInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') { prosesCari(); }
+    });
+</script>
+
+</body>
+</html>
